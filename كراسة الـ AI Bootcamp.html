@@ -1,0 +1,1315 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>كراسة الـ AI Bootcamp</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@500;700&family=IBM+Plex+Sans+Arabic:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: a study notebook — sticky unit tabs on top, one unit per view, concept "cards" like index cards with a highlighter on key terms. */
+:root{
+  --paper:#F3F6F4; --sheet:#FFFFFF; --ink:#16232A; --muted:#5B6B70; --line:#D7E0DD;
+  --teal:#0E6B66; --teal-soft:#DCEFEC; --marker:#FFE76A; --marker-ink:#3A3000;
+  --good:#1E7D45; --good-soft:#DDF3E5; --bad:#B03A2E; --bad-soft:#F8E0DC; --warn-soft:#FFF3C9;
+  --code-bg:#0F1C22; --code-fg:#E3F1EE; --code-key:#7FD8CB; --code-str:#FFD479; --code-com:#7F9AA0;
+  --f-display:"Reem Kufi","IBM Plex Sans Arabic",system-ui,sans-serif;
+  --f-body:"IBM Plex Sans Arabic","Segoe UI",Tahoma,system-ui,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#0E171B; --sheet:#152227; --ink:#E4EEEC; --muted:#93A6A9; --line:#26383E;
+  --teal:#5CC7BC; --teal-soft:#16343A; --marker:#6B5C10; --marker-ink:#FFF2B0;
+  --good:#5FD08E; --good-soft:#15382A; --bad:#F08A7E; --bad-soft:#3B1E1B; --warn-soft:#3A3416;
+  --code-bg:#091216; --code-fg:#DDEEEB; --code-key:#7FD8CB; --code-str:#FFD479; --code-com:#6F888E;
+  color-scheme:dark;}}
+:root[data-theme="dark"]{
+  --paper:#0E171B; --sheet:#152227; --ink:#E4EEEC; --muted:#93A6A9; --line:#26383E;
+  --teal:#5CC7BC; --teal-soft:#16343A; --marker:#6B5C10; --marker-ink:#FFF2B0;
+  --good:#5FD08E; --good-soft:#15382A; --bad:#F08A7E; --bad-soft:#3B1E1B; --warn-soft:#3A3416;
+  --code-bg:#091216; --code-fg:#DDEEEB; --code-key:#7FD8CB; --code-str:#FFD479; --code-com:#6F888E;
+  color-scheme:dark;}
+
+*{box-sizing:border-box}
+html{direction:rtl}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:16.5px;line-height:1.85;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 60px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--paper)}
+.wrap{max-width:900px;margin:0 auto}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;line-height:1.35;margin:0}
+code,.mono{font-family:var(--f-mono);font-size:.86em;direction:ltr;unicode-bidi:isolate}
+p{margin:0}
+:focus-visible{outline:3px solid var(--teal);outline-offset:2px;border-radius:6px}
+button{font-family:inherit;font-size:inherit;color:inherit;cursor:pointer}
+mark,.hl{background:linear-gradient(transparent 35%,var(--marker) 35%,var(--marker) 88%,transparent 88%);color:inherit;padding:0 2px}
+.en{font-family:var(--f-mono);font-size:.78em;color:var(--muted);direction:ltr;unicode-bidi:isolate;font-weight:400}
+
+/* top */
+header.top{padding-top:28px;display:flex;flex-direction:column;gap:14px}
+.brand{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap}
+.brand h1{font-size:clamp(1.7rem,4.5vw,2.4rem);font-weight:700}
+.brand h1 small{display:block;font-family:var(--f-body);font-size:.95rem;font-weight:400;color:var(--muted);margin-top:4px}
+.overall{min-width:200px;flex:0 1 260px}
+.overall .lbl{font-size:.85rem;color:var(--muted);display:flex;justify-content:space-between}
+.bar{height:9px;background:var(--line);border-radius:9px;overflow:hidden}
+.bar>i{display:block;height:100%;background:var(--teal);width:0;transition:width .4s}
+.controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.seg{display:inline-flex;background:var(--sheet);border:1px solid var(--line);border-radius:999px;padding:3px}
+.seg button{border:0;background:none;padding:5px 14px;border-radius:999px;font-size:.9rem}
+.seg button[aria-pressed="true"]{background:var(--teal);color:var(--sheet)}
+.hint{font-size:.85rem;color:var(--muted)}
+
+nav.units{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);margin-top:18px;border-bottom:1px solid var(--line);
+  display:flex;gap:4px;overflow-x:auto;scrollbar-width:thin;padding-block:8px}
+nav.units button{flex:0 0 auto;border:1px solid transparent;background:none;padding:6px 12px;border-radius:8px;font-size:.92rem;display:flex;gap:7px;align-items:center;white-space:nowrap}
+nav.units button .n{font-family:var(--f-mono);font-size:.75rem;color:var(--muted)}
+nav.units button[aria-current="true"]{background:var(--sheet);border-color:var(--line);font-weight:700}
+nav.units button .dot{width:8px;height:8px;border-radius:50%;background:var(--line)}
+nav.units button .dot.half{background:var(--marker)}
+nav.units button .dot.full{background:var(--good)}
+
+/* unit */
+section.unit{padding-top:26px;display:flex;flex-direction:column;gap:18px}
+.u-head{display:flex;flex-direction:column;gap:10px}
+.u-head .src{font-size:.85rem;color:var(--muted)}
+.u-head h2{font-size:clamp(1.5rem,4vw,2rem)}
+.bigidea{background:var(--teal-soft);border-radius:var(--r);padding:16px 18px;display:flex;flex-direction:column;gap:6px}
+.bigidea b{font-family:var(--f-display);color:var(--teal);font-size:1rem}
+.u-progress{display:flex;align-items:center;gap:10px;font-size:.88rem;color:var(--muted)}
+.u-progress .bar{flex:1}
+
+.part{font-family:var(--f-display);font-size:1.15rem;color:var(--teal);padding-top:10px;display:flex;align-items:center;gap:10px}
+.part::after{content:"";flex:1;height:1px;background:var(--line)}
+
+article.card{background:var(--sheet);border:1px solid var(--line);border-radius:var(--r);padding:18px 18px 14px;display:flex;flex-direction:column;gap:12px;min-width:0}
+article.card.done{border-color:color-mix(in srgb,var(--good) 45%,var(--line))}
+.c-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.c-top h3{font-size:1.2rem}
+.c-top h3 .en{display:block;margin-top:2px}
+.one{font-weight:500;font-size:1.04rem}
+.body{display:flex;flex-direction:column;gap:10px}
+.body ul,.body ol{margin:0;padding-inline-start:22px;display:flex;flex-direction:column;gap:4px}
+.analogy{border-inline-start:4px solid var(--marker);background:var(--warn-soft);padding:10px 14px;border-radius:0 8px 8px 0}
+.analogy::before{content:"تشبيه: ";font-weight:700}
+.tip{font-size:.92rem;color:var(--muted);border-top:1px dashed var(--line);padding-top:8px}
+.tip::before{content:"خلّي بالك: ";font-weight:700;color:var(--ink)}
+body.quick .detail{display:none}
+.check{flex:0 0 auto;border:1px solid var(--line);background:var(--paper);border-radius:999px;padding:3px 12px;font-size:.84rem;display:flex;gap:6px;align-items:center}
+.check[aria-pressed="true"]{background:var(--good-soft);border-color:var(--good);color:var(--good);font-weight:700}
+
+pre.code{background:var(--code-bg);color:var(--code-fg);border-radius:8px;padding:12px 14px;margin:0;overflow-x:auto;direction:ltr;text-align:left;font-family:var(--f-mono);font-size:.84rem;line-height:1.65}
+pre.code .k{color:var(--code-key)} pre.code .s{color:var(--code-str)} pre.code .c{color:var(--code-com)}
+
+/* diagrams */
+.fig{overflow-x:auto;padding-block:4px}
+.flow{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.flow .st{background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:4px 10px;font-size:.9rem;white-space:nowrap}
+.flow .st.hot{background:var(--teal);color:var(--sheet);border-color:var(--teal)}
+.flow .ar{color:var(--muted);font-size:.9rem}
+.flow.ltr{direction:ltr}
+.tbl{border-collapse:collapse;font-size:.9rem;min-width:100%}
+.tbl th,.tbl td{border:1px solid var(--line);padding:6px 10px;text-align:start;vertical-align:top}
+.tbl th{background:var(--paper);font-weight:700}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.box{background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:10px 12px;min-width:0}
+.box b{display:block;font-family:var(--f-display);font-weight:500}
+[hidden]{display:none!important}
+svg.d{direction:ltr;width:100%;height:auto;max-width:560px;display:block;margin-inline:auto}
+svg.d text{unicode-bidi:plaintext;font-family:var(--f-body);fill:var(--ink);font-size:13px}
+svg.d .m{fill:var(--muted)} svg.d .t{fill:var(--teal)} svg.d .mono{font-family:var(--f-mono);font-size:12px}
+svg.d .st-line{stroke:var(--line)} svg.d .st-ink{stroke:var(--ink)} svg.d .st-teal{stroke:var(--teal)} svg.d .st-muted{stroke:var(--muted)}
+svg.d .f-sheet{fill:var(--sheet)} svg.d .f-paper{fill:var(--paper)} svg.d .f-teal{fill:var(--teal)} svg.d .f-tsoft{fill:var(--teal-soft)} svg.d .f-marker{fill:var(--marker)} svg.d .f-bad{fill:var(--bad)} svg.d .f-good{fill:var(--good)}
+
+/* widgets */
+.widget{background:var(--paper);border:1px dashed var(--teal);border-radius:var(--r);padding:12px 14px;display:flex;flex-direction:column;gap:10px}
+.widget .w-t{font-family:var(--f-display);color:var(--teal)}
+.widget label{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:.92rem}
+.widget input[type=range]{direction:ltr;flex:1;min-width:140px;accent-color:var(--teal)}
+.widget output{font-family:var(--f-mono);font-weight:600;min-width:3.5em;display:inline-block}
+.cm{display:grid;grid-template-columns:auto 1fr 1fr;gap:4px;font-size:.88rem;max-width:380px}
+.cm div{padding:6px 8px;border-radius:6px;text-align:center}
+.cm .h{color:var(--muted);font-size:.8rem}
+.cm .tp,.cm .tn{background:var(--good-soft)} .cm .fp,.cm .fn{background:var(--bad-soft)}
+.stats{display:flex;gap:14px;flex-wrap:wrap;font-size:.9rem}
+.stats span b{font-family:var(--f-mono)}
+.probs{display:flex;flex-direction:column;gap:4px;font-size:.9rem}
+.probs .row{display:grid;grid-template-columns:90px 1fr 52px;gap:8px;align-items:center}
+.probs .row i{display:block;height:12px;background:var(--teal);border-radius:4px;transition:width .25s}
+.probs .row .mono{text-align:left}
+
+/* ask */
+.c-actions{display:flex;gap:8px;flex-wrap:wrap}
+.ask-btn{border:1px solid var(--teal);background:none;color:var(--teal);border-radius:999px;padding:3px 12px;font-size:.84rem}
+.ask{display:flex;flex-direction:column;gap:8px;background:var(--teal-soft);border-radius:8px;padding:10px 12px}
+.ask .row{display:flex;gap:8px;flex-wrap:wrap}
+.ask input{flex:1;min-width:180px;border:1px solid var(--line);background:var(--sheet);border-radius:8px;padding:7px 10px;font-family:inherit;font-size:.92rem;color:var(--ink)}
+.ask .go{border:0;background:var(--teal);color:var(--sheet);border-radius:8px;padding:6px 14px;font-size:.9rem}
+.ask .quickq{display:flex;gap:6px;flex-wrap:wrap}
+.ask .quickq button{border:1px solid var(--line);background:var(--sheet);border-radius:999px;padding:2px 10px;font-size:.8rem}
+.ask .ans{white-space:pre-wrap;font-size:.95rem}
+.ask .ans:empty{display:none}
+
+/* quiz */
+.quiz{background:var(--sheet);border:2px solid var(--teal);border-radius:var(--r);padding:18px;display:flex;flex-direction:column;gap:16px}
+.quiz h3{color:var(--teal)}
+.q{display:flex;flex-direction:column;gap:8px}
+.q .qt{font-weight:700}
+.opts{display:flex;flex-direction:column;gap:6px}
+.opts button{text-align:start;border:1px solid var(--line);background:var(--paper);border-radius:8px;padding:8px 12px;font-size:.95rem}
+.opts button.right{background:var(--good-soft);border-color:var(--good)}
+.opts button.wrong{background:var(--bad-soft);border-color:var(--bad)}
+.opts button:disabled{cursor:default}
+.why{font-size:.92rem;padding:8px 12px;border-radius:8px;background:var(--paper)}
+.score{font-family:var(--f-display);font-size:1.05rem}
+.nextu{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;padding-top:6px}
+.nextu button{border:1px solid var(--line);background:var(--sheet);border-radius:8px;padding:8px 14px}
+.nextu button.primary{background:var(--teal);color:var(--sheet);border-color:var(--teal)}
+
+/* map */
+.roadmap{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px}
+.roadmap button{text-align:start;background:var(--sheet);border:1px solid var(--line);border-radius:var(--r);padding:14px;display:flex;flex-direction:column;gap:4px}
+.roadmap button .n{font-family:var(--f-mono);color:var(--teal);font-size:.8rem}
+.roadmap button b{font-family:var(--f-display);font-size:1.1rem;font-weight:500}
+.roadmap button span{color:var(--muted);font-size:.9rem;line-height:1.6}
+.howto{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+footer{margin-top:40px;color:var(--muted);font-size:.85rem}
+@media (max-width:520px){body{font-size:15.5px}.c-top{flex-direction:column}.probs .row{grid-template-columns:70px 1fr 46px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+<header class="top">
+  <div class="brand">
+    <h1>كراسة الـ AI Bootcamp<small>الملفات الستة متشرحة بالمصري، فكرة فكرة، بتشبيهات ورسومات وأسئلة</small></h1>
+    <div class="overall"><div class="lbl"><span>إنجازك الكلي</span><span id="ovTxt">0%</span></div><div class="bar"><i id="ovBar"></i></div></div>
+  </div>
+  <div class="controls">
+    <div class="seg" role="group" aria-label="سرعة الشرح">
+      <button id="mQuick" aria-pressed="false">مراجعة سريعة</button>
+      <button id="mFull" aria-pressed="true">شرح كامل</button>
+    </div>
+    <span class="hint" id="modeHint">الشرح الكامل: كل فكرة بتشبيه ومثال وكود.</span>
+  </div>
+</header>
+<nav class="units" id="nav" aria-label="الوحدات"></nav>
+<main id="main"></main>
+<footer>المحتوى مبني على ملفات الـ Bootcamp الستة (Python، Data &amp; APIs، Math، ML، Deep Learning، Generative AI). علّم على كل فكرة "فهمتها" عشان تتابع تقدمك؛ التقدم بيتحفظ في المتصفح ده بس.</footer>
+</div>
+<script>
+
+// ---------- helpers for content ----------
+const fl=(arr,hot=-1,ltr=false)=>`<div class="fig"><div class="flow${ltr?' ltr':''}">`+arr.map((s,i)=>`<span class="st${i===hot?' hot':''}">${s}</span>`).join(`<span class="ar">${ltr?'→':'←'}</span>`)+`</div></div>`;
+const tb=(head,rows)=>`<div class="fig"><table class="tbl"><thead><tr>${head.map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>${rows.map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+const bx=(items)=>`<div class="grid2">${items.map(([h,t])=>`<div class="box"><b>${h}</b>${t}</div>`).join('')}</div>`;
+
+const UNITS=[];
+
+// =============== 1. PYTHON ===============
+UNITS.push({id:"python",title:"أساسيات Python",en:"Python Foundations",src:"من ملف AI_Bootcamp_Day_1",
+big:"أي برنامج في الدنيا = <mark>بيانات</mark> داخلة + <mark>تعليمات</mark> بتشتغل عليها = <mark>نتيجة</mark>. Python مجرد لغة نكتب بيها التعليمات دي.",
+link:"دي الأساس. كل الأيام اللي جاية (البيانات، الـ ML، الـ Deep Learning) هتتكتب بـ Python.",
+parts:[
+{name:"الفكرة قبل الكود",cards:[
+{id:"py-program",t:"يعني إيه برنامج؟",en:"What is a program?",
+one:"البرنامج = مجموعة تعليمات بتقول للكمبيوتر يعمل إيه في البيانات عشان يطلع نتيجة.",
+fig:fl(["بيانات <span class='en'>Data</span>","تعليمات <span class='en'>Instructions</span>","نتيجة <span class='en'>Result</span>"],1),
+body:`<p>الآلة الحاسبة: بتديها <code>10</code> و <code>5</code> (بيانات)، تقولها "اجمع" (تعليمة)، تطلعلك <code>15</code> (نتيجة).</p>
+<p>جوجل ماب نفس الفكرة بس أكبر: البيانات = مكانك + المكان اللي رايحه + الطرق + الزحمة. التعليمات = دوّر على الطرق، احسب الوقت، قارن. النتيجة = أحسن طريق.</p>
+<p>وChatGPT كمان: البيانات = سؤالك. التعليمات = الموديل بيحسب. النتيجة = الرد.</p>
+<div class="analogy">وصفة أكل: المقادير هي البيانات، خطوات الوصفة هي التعليمات، والطبق هو النتيجة. نفس الوصفة تنفع مع مقادير مختلفة.</div>`,
+tip:"قوة البرمجة إنك تكتب الخطوات مرة واحدة وتستخدمها مع بيانات مختلفة كتير: <code>calculate_total(2, 50)</code> و <code>calculate_total(100, 50)</code>."},
+{id:"py-datatype",t:"ليه نوع البيانات مهم؟",en:"Data types",
+one:"نفس الرموز ممكن يكون ليها معنى مختلف حسب نوعها: نص ولا رقم.",
+fig:tb(["الكود","النتيجة","ليه؟"],[["<code>\"10\" + \"5\"</code>","<code>\"105\"</code>","دول نصوص، فالـ + بيلزقهم جنب بعض"],["<code>10 + 5</code>","<code>15</code>","دول أرقام، فالـ + بيجمع"]]),
+body:`<p>البيانات بتبدأ بسيطة وتكبر:</p>
+${fl(["قيمة واحدة <code>\"Ahmed\"</code>","مجموعة <code>[90, 85]</code>","سجل <code>{name, score}</code>","مجموعة سجلات <code>[{...},{...}]</code>"],-1)}
+<p>والبيانات بتيجي من: المستخدم، ملفات، قواعد بيانات، حساسات، APIs، أو برامج تانية.</p>`},
+{id:"py-ops",t:"كل البرامج مبنية من 6 عمليات بس",en:"Core operations",
+one:"تحميل/حفظ، حساب، مقارنة وقرار، تحويل، تكرار، تواصل. أي تطبيق كبير هو خليط منهم.",
+fig:bx([["تحميل وحفظ","Load / Store"],["حساب","+ − × ÷"],["مقارنة وقرار","هل السن ≥ 18؟ → True/False"],["تحويل","فلتر، ترتيب، خد أول 10"],["تكرار","اعمل نفس الحاجة لكل طالب"],["تواصل","كلّم API أو قاعدة بيانات"]]),
+body:`<p>مثال: صفحة الدفع في أي موقع شوبنج:</p>${fl(["حمّل السلة","احسب الإجمالي","اتأكد من الشروط","طبّق الخصم","احفظ الأوردر","اعرض النتيجة"])}`},
+{id:"py-run",t:"الكمبيوتر بيفهم Python إزاي؟",en:"Compiler, Interpreter, Runtime",
+one:"المعالج (CPU) مش بيفهم Python. لازم برنامج تاني يترجمها لأوامر الآلة.",
+fig:fl(["كود Python <span class='en'>.py</span>","Bytecode","Python Virtual Machine","المعالج CPU"],-1,false),
+body:`<p>اللغات متدرجة من "قريبة للإنسان" لـ"قريبة للهاردوير": Python (عالية) ← Assembly ← Machine code (أصفار وواحدات) ← CPU.</p>
+${bx([["Compiler (المترجم المسبق)","بيترجم البرنامج كله <b style='display:inline'>قبل</b> التشغيل. زي ما تترجم كتاب كامل وبعدين تطبعه. مثال: C."],["Interpreter (المفسّر)","برنامج تاني بيشارك <b style='display:inline'>أثناء</b> التشغيل. زي مترجم فوري جنبك. الأخطاء بتظهر وانت شغال."]])}
+<p>الحقيقة إن Python (النسخة المشهورة CPython) بتعمل الاتنين: بتحوّل الكود لـ <b>bytecode</b> الأول، وبعدين الـ Python Virtual Machine بتشغله.</p>
+<div class="analogy">انت بتكلم سايح ياباني. انت = كود Python، اليابانية = لغة الآلة، والمترجم اللي في النص = الـ interpreter.</div>`,
+tip:"اللغة نفسها مش \"compiled\" أو \"interpreted\". الطريقة اللي بتتنفذ بيها هي اللي بتحدد ده."}
+]},
+{name:"الكود الأساسي",cards:[
+{id:"py-vars",t:"المتغيرات وأنواعها",en:"Variables & types",
+one:"المتغير = اسم بنحطه على قيمة عشان نرجعلها بعدين.",
+code:`age = 25            # int    رقم صحيح
+score = 92.5        # float  رقم بكسور
+name = "Ahmed"      # str    نص
+is_active = True    # bool   صح/غلط
+result = None       # None   مفيش قيمة
+
+score = score + 5   # المتغير ممكن يتغير
+print(type(name))   # <class 'str'>
+print(f"{name} scored {score}")   # f-string`,
+body:`<div class="analogy">المتغير زي علبة عليها ورقة مكتوب عليها اسم. <code>age = 25</code> يعني حط 25 في العلبة اللي اسمها age.</div>
+<p>سمّي المتغيرات بأسماء واضحة: <code>student_score</code> أحسن بكتير من <code>x</code>.</p>`,
+tip:"<code>input()</code> بيرجع نص دايماً، حتى لو المستخدم كتب رقم. عشان كده بنكتب <code>int(input(\"Age: \"))</code>."},
+{id:"py-if",t:"الشروط: خلي البرنامج ياخد قرار",en:"if / elif / else",
+one:"المقارنة بترجع True أو False، والـ if بتختار تنفذ إيه على أساسها.",
+code:`score = int(input("Score: "))
+
+if score >= 80:
+    print("Excellent")
+elif score >= 50:
+    print("Acceptable")
+else:
+    print("Poor")
+
+# ممكن تجمع شروط
+if age >= 18 and has_id:
+    print("Welcome")`,
+body:`<p>علامات المقارنة: <code>&gt;</code> <code>&lt;</code> <code>&gt;=</code> <code>&lt;=</code> <code>==</code> (يساوي) <code>!=</code> (لا يساوي). وتربط بينهم بـ <code>and</code> و <code>or</code> و <code>not</code>.</p>
+<div class="analogy">إشارة المرور: لو أحمر اقف، لو أصفر استعد، غير كده امشي.</div>`,
+tip:"الـ indentation (المسافات في أول السطر) في Python مش شكل وبس، هي اللي بتحدد السطر تابع لأنهي if. Python بتستخدمها مكان الأقواس {} في لغات تانية."},
+{id:"py-coll",t:"المجموعات: list و dict",en:"Collections",
+one:"لما يكون عندك قيم كتير بدل متغير لكل واحدة، بتحطهم في list (مرتبة) أو dict (مفتاح ← قيمة).",
+code:`models = ["GPT", "Claude", "Gemini"]   # list
+print(models[0])     # GPT   (العد بيبدأ من 0)
+print(models[-1])    # Gemini (آخر عنصر)
+models.append("Llama")
+print(models[:2])    # أول اتنين
+
+student = {"name": "Ahmed", "score": 92}   # dict
+print(student["name"])   # Ahmed
+
+students = [                           # list of dicts
+    {"name": "Ahmed", "score": 90},
+    {"name": "Sara",  "score": 85},
+]`,
+body:`${tb(["النوع","شكله","بيستخدم في"],[["list","<code>[1, 2, 3]</code>","قايمة مرتبة وتقدر تغيرها"],["tuple","<code>(30.0, 31.2)</code>","مجموعة ثابتة زي إحداثيات"],["set","<code>{\"AI\", \"Python\"}</code>","عناصر من غير تكرار"],["dict","<code>{\"name\": \"Ahmed\"}</code>","سجل: مفتاح وقيمة"]])}
+<div class="analogy">الـ list زي طابور مرقّم. الـ dict زي دليل التليفون: تدوّر بالاسم (المفتاح) تلاقي الرقم (القيمة).</div>`,
+tip:"شكل \"list of dicts\" هتشوفه في كل حتة: ردود الـ APIs، نتايج قواعد البيانات، JSON، ورسايل الشات مع الـ LLM."},
+{id:"py-loop",t:"التكرار: for و while",en:"Loops",
+one:"بدل ما تكتب نفس السطر 1000 مرة، بتقول: لكل عنصر في القايمة اعمل كذا.",
+code:`for student in students:
+    if student["score"] >= 80:
+        print(student["name"])
+
+for i in range(5):            # 0,1,2,3,4
+    print(i)
+
+for i, m in enumerate(models):  # الرقم + العنصر
+    print(i, m)
+
+# list comprehension: نفس الفكرة في سطر واحد
+passed = [s["name"] for s in students if s["score"] >= 80]`,
+body:`<p><code>while</code> بتكرر طول ما الشرط صح. <code>break</code> تخرج من اللوب، و <code>continue</code> تنط للّفة اللي بعدها.</p>
+<div class="analogy">المدرس وهو بيصحح: "لكل ورقة في الكومة: صححها واكتب الدرجة". مش بيكتب تعليمات منفصلة لكل ورقة.</div>`},
+{id:"py-func",t:"الدوال: تعليمات ليها اسم",en:"Functions",
+one:"الدالة بتاخد مدخلات، تشتغل عليها، وترجع نتيجة بـ return.",
+fig:fl(["مدخلات <code>scores</code>","الدالة <code>calculate_average()</code>","مخرج <code>84.5</code>"],1),
+code:`def add(a, b):
+    return a + b
+
+result = add(10, 5)    # 15
+
+def generate_prompt(topic: str, level: str = "beginner") -> str:
+    return f"Explain {topic} to a {level} learner."
+
+generate_prompt("Transformers")                 # level = beginner
+generate_prompt(topic="Transformers", level="advanced")`,
+body:`<p><code>level: str = "beginner"</code> معناها قيمة افتراضية لو ما بعتّش حاجة. و <code>-&gt; str</code> دي type hint بتقول الدالة بترجع نص.</p>
+<div class="analogy">ماكينة العصير: تحط فاكهة (parameters)، تدوس الزرار، تطلعلك عصير (return).</div>`,
+tip:"<code>print()</code> بتعرض على الشاشة بس. <code>return</code> بترجع القيمة للكود اللي نادى الدالة عشان يستخدمها."},
+{id:"py-err",t:"الأخطاء والـ debugging",en:"Errors & try/except",
+one:"الخطأ مش فشل، هو رسالة بتقولك البرنامج ماقدرش يعمل إيه بالظبط.",
+fig:tb(["الخطأ","معناه"],[["SyntaxError","كتبت Python غلط (ناقص : أو قوس)"],["NameError","متغير مش معرّف"],["TypeError","عملية مش مناسبة للنوع (زي نص + رقم)"],["ValueError","القيمة مش نافعة (<code>int(\"abc\")</code>)"],["KeyError","مفتاح مش موجود في الـ dict"],["IndexError","رقم index برا حدود الـ list"]]),
+code:`try:
+    age = int(input("Age: "))
+except ValueError:
+    print("Please enter a number.")`,
+body:`<p>اقرا رسالة الخطأ (الـ traceback) <b>من تحت لفوق</b>: آخر سطر فيه نوع الخطأ ورسالته، وفوقه السطر اللي حصل فيه.</p>
+${fl(["شغّل","لاحظ","خمّن السبب","غيّر حاجة واحدة","شغّل تاني"])}`,
+tip:"الـ debugging تفكير منظم، مش إنك تغير حاجات عشوائي لحد ما الخطأ يختفي."}
+]},
+{name:"Python في الحياة الحقيقية",cards:[
+{id:"py-mod",t:"المكتبات و pip والبيئة الافتراضية",en:"Modules, pip, venv",
+one:"مش لازم تكتب كل حاجة بنفسك. استورد كود جاهز بـ import ونزّل مكتبات بـ pip.",
+code:`import math
+from pathlib import Path
+print(math.sqrt(16))     # 4.0
+
+# في الـ terminal:
+# pip install requests
+# python -m venv .venv          إنشاء بيئة معزولة
+# source .venv/bin/activate     تفعيلها`,
+body:`<p>المكتبات نوعين: <b>Standard Library</b> جاية مع Python (math, json, datetime, pathlib, random)، و<b>Third-party</b> بتنزلها (requests, FastAPI, PyTorch, Transformers).</p>
+<div class="analogy">الـ virtual environment زي إن كل مشروع ليه شنطة عدة لوحده. مشروع A محتاج نسخة 1 من مكتبة، ومشروع B محتاج نسخة 2، فكل واحد في شنطته ومايتخانقوش.</div>`},
+{id:"py-json",t:"JSON والملفات: البيانات اللي بتفضل",en:"JSON & Files",
+one:"المتغيرات بتختفي لما البرنامج يقفل. عشان تحفظ البيانات، تكتبها في ملف، وغالباً بصيغة JSON.",
+code:`import json
+
+with open("tasks.json", "w") as f:
+    json.dump(tasks, f, indent=2)     # Python → ملف JSON
+
+with open("tasks.json") as f:
+    tasks = json.load(f)              # ملف JSON → Python
+
+text = json.dumps(student)   # Python → نص JSON
+data = json.loads(text)      # نص JSON → Python`,
+body:`<p>JSON شبه الـ dict جداً، بس هو <b>نص</b> (صيغة لتبادل البيانات)، مش object جوه Python. وفي فروق صغيرة: <code>true</code> في JSON = <code>True</code> في Python.</p>
+<p>ولاحقاً في الكورس: Python هتبعت prompt لـ LLM API وترجعلها رد JSON.</p>`,
+tip:"<code>dump/load</code> (من غير s) للملفات. <code>dumps/loads</code> (بـ s = string) للنصوص."},
+{id:"py-oop",t:"البرمجة الكائنية (OOP)",en:"Classes & Objects",
+one:"بدل بيانات في حتة ودوال في حتة، بنجمع البيانات والتصرفات اللي تخصها في \"كائن\" واحد.",
+code:`class BankAccount:                       # الـ class = التصميم
+    def __init__(self, owner, balance):
+        self.owner = owner               # state (البيانات)
+        self.balance = balance
+
+    def deposit(self, amount):           # behavior (التصرف)
+        self.balance += amount
+
+account = BankAccount("Ahmed", 1000)     # object = نسخة حقيقية
+account.deposit(500)
+print(account.balance)   # 1500`,
+body:`${tb(["الطريقة الإجرائية","الطريقة الكائنية"],[["إيه الخطوات اللي هتحصل؟","إيه الحاجات (الكيانات) الموجودة؟"],["<code>deposit(account, amount)</code>","<code>account.deposit(amount)</code>"]])}
+<div class="analogy">الـ class زي رسمة الشقة عند المهندس. الـ object هو الشقة الحقيقية. من رسمة واحدة تبني شقة أحمد وشقة سارة، وكل واحدة فيها عفشها (state).</div>`,
+tip:"<code>__init__</code> بتشتغل أوتوماتيك لما تعمل object جديد. و <code>self</code> معناها \"الـ object ده نفسه\"."},
+{id:"py-project",t:"المشروع: Task Manager",en:"Final integration project",
+one:"تطبيق صغير بيجمع كل اللي فات: بيانات + دوال + لوب + شروط + ملف JSON.",
+fig:fl(["حمّل المهام","اعرض القايمة","اقرا اختيارك","نفّذ","احفظ","كرر"]),
+body:`<p>الخطوات زي أي مهندس:</p><ol><li><b>صمم البيانات الأول:</b> كل مهمة dict فيها <code>id, title, priority, completed</code>.</li><li><b>حدد التعليمات:</b> <code>add_task, view_tasks, complete_task, search_tasks, save_tasks, load_tasks</code>.</li><li><b>رتّب سير البرنامج:</b> لوب بيعرض المنيو لحد ما المستخدم يختار خروج.</li></ol>
+<p>استخدم: متغيرات، أنواع، نصوص، شروط، lists، dicts، لوب، دوال، exceptions، modules، ملفات، JSON.</p>`,
+tip:"لو تقدر تكتب الـ Task Manager ده لوحدك من غير ما تبص، يبقى يوم 1 خلص."}
+]}],
+quiz:[
+{q:"إيه ناتج <code>\"10\" + \"5\"</code> في Python؟",o:["15","\"105\"","Error"],a:1,why:"الاتنين نصوص (بين علامات تنصيص)، فالـ + بيلزقهم: \"105\"."},
+{q:"<code>models = [\"GPT\",\"Claude\",\"Gemini\"]</code>. إيه قيمة <code>models[1]</code>؟",o:["GPT","Claude","Gemini"],a:1,why:"العد بيبدأ من 0، فـ index 1 هو العنصر التاني."},
+{q:"الفرق بين print و return في الدالة؟",o:["مفيش فرق","print بتعرض على الشاشة، return بترجع القيمة للي نادى الدالة","return بتعرض على الشاشة"],a:1,why:"return هي اللي بتخليك تخزن النتيجة: <code>result = add(2,3)</code>."},
+{q:"<code>int(\"abc\")</code> هيدّي أنهي خطأ؟",o:["NameError","KeyError","ValueError"],a:2,why:"النوع صح (نص) بس القيمة نفسها ماتتحولش لرقم، فده ValueError."},
+{q:"ليه بنعمل virtual environment؟",o:["عشان الكود يشتغل أسرع","عشان كل مشروع يبقى ليه مكتباته ونسخها لوحده","عشان نكتب OOP"],a:1,why:"بتعزل مكتبات كل مشروع عشان النسخ ماتتعارضش."}
+]});
+
+// =============== 2. DATA / APIs ===============
+UNITS.push({id:"data",title:"البيانات والـ APIs والتوازي",en:"Data, APIs, SQL & Concurrency",src:"من ملف AI_Bootcamp_Session_2",
+big:"البيانات الحقيقية مش مكتوبة جوه الكود. بتيجي من ملفات وقواعد بيانات وAPIs، وغالباً بتيجي <mark>وسخة</mark>. شغلتك تجيبها، تتأكد منها، تنضفها، وتجمعها.",
+link:"يوم 1 علمك تكتب برنامج. هنا بتوصّل البرنامج بالعالم الحقيقي. والبيانات النضيفة دي هي اللي هتدخل الـ ML في يوم 4.",
+parts:[
+{name:"البيانات بتيجي منين؟",cards:[
+{id:"da-pipe",t:"خط سير البيانات",en:"The data pipeline",
+one:"كل موضوع في السيشن دي بيحل مرحلة واحدة من الخط ده.",
+fig:fl(["Source المصدر","Retrieve هات","Parse افهم الصيغة","Validate اتأكد","Clean نضّف","Transform حوّل","Combine اجمع","Use استخدم"]),
+body:`<p>المثال اللي ماشي معانا طول السيشن: محل أونلاين عنده</p>
+${bx([["products.csv","أسماء المنتجات والأسعار"],["customers.json","بيانات العملاء"],["قاعدة بيانات SQL","الأوردرات"],["APIs خارجية","المخزون والشحن وسعر الصرف"]])}
+<p>والهدف: نجمعهم في dataset واحدة نضيفة جاهزة للـ AI.</p>`},
+{id:"da-worlds",t:"ملفات vs قاعدة بيانات vs API",en:"Files, Databases, APIs",
+one:"تلات أماكن بتعيش فيها البيانات، وكل واحد ليه ميزته.",
+fig:tb(["المصدر","فكّر فيه كإنه","ميزته","مثال"],[["ملف File","صورة ثابتة من البيانات","سهل تنقله وتبادله","products.csv"],["قاعدة بيانات Database","مخزن منظم بيتحدث","استعلامات وتحديث وعلاقات","جدول orders"],["API","واجهة لبرنامج تاني","بيانات لايف من نظام تاني","خدمة المخزون"]]),
+body:`<div class="analogy">الملف زي ورقة مطبوعة. قاعدة البيانات زي دولاب أرشيف منظم بيتحدث كل يوم. الـ API زي إنك تتصل بشباك خدمة عملاء وتسأل وهم يردوا عليك.</div>`},
+{id:"da-json-csv",t:"JSON و CSV",en:"Data formats",
+one:"CSV = جدول (صفوف وأعمدة). JSON = بيانات متداخلة (objects جوا objects).",
+code:`# CSV
+id,name,price,category
+1,Laptop,1200,Electronics
+2,Mouse,30,Electronics
+
+# JSON متداخل
+data = {"customer": {"id": 102, "name": "Sara"},
+        "orders": [{"id": 1, "total": 500}, {"id": 2, "total": 900}]}
+print(data["customer"]["name"])      # Sara
+print(data["orders"][0]["total"])    # 500`,
+body:`${tb(["JSON","CSV"],[["شكله مرن وبيدعم التداخل","صفوف وأعمدة بس"],["ممتاز للـ APIs والإعدادات","ممتاز للجداول والـ datasets"],["objects و arrays","بيتفتح في Excel بسهولة"]])}`},
+{id:"da-sql",t:"SQL في سطرين",en:"Querying a database",
+one:"SQL هي اللغة اللي بتسأل بيها قاعدة البيانات: هاتلي الصفوف اللي فيها كذا.",
+code:`SELECT customer_id, SUM(total) AS spent
+FROM orders
+WHERE status = 'paid'
+GROUP BY customer_id
+ORDER BY spent DESC
+LIMIT 10;`,
+body:`<p>اقراها بالعربي: من جدول <code>orders</code> (FROM)، خد الأوردرات المدفوعة بس (WHERE)، جمّعهم لكل عميل (GROUP BY)، ورتّبهم من الأكبر (ORDER BY)، وهات أول 10 (LIMIT).</p>
+<p>ولو عايز تربط جدولين (أوردرات + عملاء) بتستخدم <code>JOIN ... ON orders.customer_id = customers.id</code>.</p>`,
+tip:"ملف السيشن عنوانه فيه SQL بس الشرائح المرفوعة مافيهاش جزء SQL بالتفصيل، فدي مقدمة سريعة من عندي تكمّل الصورة. راجع مع المدرب لو في جزء اتشرح في السيشن."}
+]},
+{name:"NumPy و Pandas",cards:[
+{id:"da-numpy",t:"NumPy و Vectorization",en:"Arrays",
+one:"NumPy array بيطبّق العملية على كل العناصر مرة واحدة من غير لوب.",
+code:`prices = [100, 200, 300]
+print(prices * 2)        # [100,200,300,100,200,300]  ← مش ضرب!
+
+import numpy as np
+prices = np.array([100, 200, 300])
+print(prices * 1.14)     # [114. 228. 342.]   ← ضرب لكل عنصر
+print(prices.shape, prices.dtype, prices.mean())`,
+body:`<p>ده اسمه <b>vectorization</b>: تكتب العملية على المصفوفة كلها بدل ما تلف عنصر عنصر. أسرع وأوضح.</p>
+<div class="analogy">بدل ما تختم 100 ورقة واحدة واحدة، عندك ختم عريض بيختمهم كلهم مرة واحدة.</div>`,
+tip:"الـ list في Python حاجة عامة. الـ NumPy array متخصص في الأرقام، وهو أساس كل حاجة في الـ ML بعد كده."},
+{id:"da-pandas",t:"Pandas DataFrame",en:"Tables in code",
+one:"الـ DataFrame = جدول Excel بس جوه الكود وتقدر تبرمجه.",
+code:`import pandas as pd
+df = pd.read_csv("products.csv")
+
+# أول أسئلة لأي dataset:
+df.head()       # أول صفوف
+df.shape        # عدد الصفوف والأعمدة
+df.dtypes       # نوع كل عمود
+df.info()       # ملخص + القيم الناقصة
+df.describe()   # إحصائيات
+
+df[["name", "price"]]                 # اختار أعمدة
+df[df["price"] > 100]                 # فلتر صفوف
+df["price_egp"] = df["price_usd"] * rate   # عمود جديد
+df["category"] = df["category"].str.lower()`,
+body:`${fl(["حمّل LOAD","افحص INSPECT","بعدين حوّل TRANSFORM"],1)}<p>القاعدة: <b>ماتنضفش وانت مغمض</b>. افحص الأول.</p>`},
+{id:"da-dirty",t:"البيانات الوسخة وتنضيفها",en:"Data cleaning",
+one:"البيانات الحقيقية فيها قيم ناقصة، مسافات زيادة، كتابة مختلفة لنفس الحاجة، وتكرار.",
+code:`name,price,category
+Laptop,1200,Electronics
+Mouse,, electronics          ← سعر ناقص + مسافة + حروف صغيرة
+laptop,1100,ELECTRONICS      ← حروف كبيرة
+Keyboard,null,Accessories    ← null
+Laptop,1200,Electronics      ← مكرر
+
+df.isna().sum()                                        # فين الناقص؟
+df["price"] = pd.to_numeric(df["price"], errors="coerce")  # حوّل لرقم
+df["category"] = df["category"].str.strip().str.lower()
+df = df.drop_duplicates()
+df = df.dropna(subset=["price"])`,
+body:`<p>"ناقص" مش معنى واحد: <code>0</code> رقم معروف، <code>""</code> نص فاضي، <code>None</code> مفيش قيمة في Python، <code>NaN</code> قيمة ناقصة في جدول.</p>
+${bx([["امسح Remove","لو الصف مالوش لازمة من غيرها"],["املا Fill","بقيمة افتراضية أو المتوسط"],["استنتج Infer","من بيانات تانية لو منطقي"],["سيبها Keep","أحياناً كونها ناقصة ليه معنى"]])}`,
+tip:"الكود سهل، الصعب هو القرار: رقم تليفون ناقص غير سعر منتج ناقص. ولو مسحت صفوف كتير من فئة معينة ممكن تبوّظ الـ dataset (bias). واحتفظ دايماً بالنسخة الأصلية."}
+]},
+{name:"APIs والاعتمادية",cards:[
+{id:"da-http",t:"الـ API و HTTP",en:"Request / Response",
+one:"الـ API = طريقة برنامج يكلم برنامج. بتبعت request وبيرجعلك response.",
+fig:fl(["برنامجك (Client)","Request: Method + URL + Headers + Body","السيرفر","Response: Status + Headers + Body"]),
+code:`import requests
+response = requests.get("https://api.example.com/products", timeout=5)
+print(response.status_code)   # 200
+data = response.json()`,
+body:`${tb(["Method","المعنى","مثال"],[["GET","اقرا","هات منتج 1001"],["POST","اعمل جديد","اعمل أوردر جديد"],["PUT","استبدل/حدّث","حدّث بروفايل عميل"],["DELETE","امسح","امسح عنصر محفوظ"]])}
+<div class="analogy">الـ UI للإنسان (زراير وشاشات). الـ API للبرامج (طلبات وردود منظمة). زي الفرق بين المنيو اللي بتقراه في المطعم، والورقة اللي الجرسون بيبعتها للمطبخ.</div>`},
+{id:"da-status",t:"أكواد الحالة (Status codes)",en:"2xx / 4xx / 5xx",
+one:"اتعلم العائلات: 2xx تمام، 4xx الغلط عندك، 5xx الغلط عند السيرفر.",
+fig:tb(["العيلة","المعنى","أمثلة"],[["2xx","نجح","200 OK · 201 Created"],["4xx","مشكلة من ناحيتك (الطلب)","400 طلب غلط · 401 مش متعرف عليك · 404 مش موجود · 429 طلبات كتير"],["5xx","مشكلة عند السيرفر","500 · 503"]]),
+body:`${bx([["Authentication","انت مين؟ (API key، token، login)"],["Authorization","مسموحلك تعمل إيه؟ (قراية بس؟ كتابة؟ أدمن؟)"]])}`,
+code:`import os
+API_KEY = os.getenv("API_KEY")        # ✓ من البيئة
+# API_KEY = "sk-super-secret"         # ✗ أبداً في الكود
+headers = {"Authorization": f"Bearer {API_KEY}"}
+response = requests.get(url, headers=headers, timeout=5)`,
+tip:"ماتكتبش أي secret في الكود. الكود بيتنسخ على Git وفي screenshots وبيتشير."},
+{id:"da-schema",t:"الـ Schema والتحقق",en:"Validation",
+one:"البيانات اللي جاية من برا مش مضمونة. الـ schema بتوصف الشكل المتوقع، والـ validation بتتأكد منه.",
+fig:tb(["كنت مستني","وجالك"],[["<code>{\"id\": 1, \"name\": \"Laptop\", \"price\": 1200}</code>","<code>{\"id\": \"abc\", \"name\": null, \"price\": \"expensive\"}</code>"]]),
+body:`<p>الـ schema بتحدد: أسماء الحقول، أنواعها، القواعد (إجباري؟ مدى مسموح؟)، والتداخل. الرد التاني JSON سليم كصيغة لكنه غلط بالنسبة لتطبيقك.</p><p>كتابة <code>if</code> لكل حقل بإيدك بتبقى طويلة وسهل تغلط فيها، عشان كده بنستخدم مكتبات زي <b>Pydantic</b> (اتذكرت في يوم 1).</p>`},
+{id:"da-retry",t:"الفشل والـ Timeout والإعادة",en:"Timeouts, retries, backoff, rate limits",
+one:"الأنظمة الخارجية بتقع. الكود الكويس متوقع الفشل وعارف يتصرف.",
+fig:tb(["الموقف","تعيد المحاولة؟","ليه"],[["Timeout / انقطاع","غالباً آه","ممكن مؤقت"],["500 / 503","غالباً آه","السيرفر ممكن يرجع"],["429","آه بحذر","احترم Retry-After"],["400","غالباً لأ","طلبك نفسه غلط"],["401","مش عشوائي","صلّح الـ credentials الأول"]]),
+body:`<p><b>Timeout:</b> حد أقصى للانتظار، عشان البرنامج مايفضلش مستني للأبد.</p>
+<p><b>Exponential backoff:</b> استنى 1 ثانية، بعدين 2، بعدين 4، بعدين 8... عشان ماتضغطش على سيرفر تعبان.</p>
+<p><b>Rate limit:</b> السيرفر بيحدد عدد طلبات، ولو زودت بيرد 429. الكود السريع مش كويس لو بيوقّع الخدمة اللي معتمد عليها.</p>
+<div class="analogy">بتتصل بحد ومابيردش: مش هتفضل تتصل 50 مرة ورا بعض. هتستنى دقيقة، بعدين دقيقتين، بعدين أربعة.</div>`},
+{id:"da-async",t:"التوازي: async و await",en:"Concurrency",
+one:"أغلب وقت طلبات الشبكة انتظار. بدل ما تستنى كل طلب يخلص لوحده، ابعتهم كلهم وانت مستني.",
+fig:`<svg class="d" viewBox="0 0 520 170" role="img" aria-label="مقارنة بين التنفيذ المتتالي 8 ثواني والمتوازي ثانيتين">
+<text x="510" y="20" text-anchor="end">متتالي ≈ 8 ثواني</text>
+<rect x="30" y="30" width="110" height="22" rx="4" class="f-tsoft"/><rect x="145" y="30" width="110" height="22" rx="4" class="f-tsoft"/><rect x="260" y="30" width="110" height="22" rx="4" class="f-tsoft"/><rect x="375" y="30" width="110" height="22" rx="4" class="f-tsoft"/>
+<text x="85" y="46" text-anchor="middle" class="mono">weather</text><text x="200" y="46" text-anchor="middle" class="mono">currency</text><text x="315" y="46" text-anchor="middle" class="mono">inventory</text><text x="430" y="46" text-anchor="middle" class="mono">shipping</text>
+<text x="510" y="82" text-anchor="end">متوازي (async) ≈ 2 ثانية</text>
+<rect x="30" y="90" width="110" height="14" rx="3" class="f-teal"/><rect x="30" y="108" width="110" height="14" rx="3" class="f-teal"/><rect x="30" y="126" width="110" height="14" rx="3" class="f-teal"/><rect x="30" y="144" width="110" height="14" rx="3" class="f-teal"/>
+<line x1="30" y1="165" x2="485" y2="165" class="st-line" stroke-width="1"/></svg>`,
+code:`import asyncio
+weather, currency, inventory = await asyncio.gather(
+    get_weather(), get_currency(), get_inventory(),
+    return_exceptions=True,     # لو واحد فشل الباقي يكمل
+)`,
+body:`${tb(["CPU-bound","I/O-bound"],[["حسابات تقيلة، صور، تدريب موديل","طلبات HTTP، قواعد بيانات، ملفات"],["المعالج شغال طول الوقت","البرنامج أغلب الوقت مستني"]])}
+<p><b>Concurrency:</b> كذا مهمة بتتقدم في نفس الفترة (بنستغل وقت الانتظار). <b>Parallelism:</b> كذا مهمة شغالة فعلاً في نفس اللحظة على كذا core. الـ async بتاعنا = concurrency.</p>
+<p>الـ <b>event loop</b> هو المنسق: أي مهمة مستنية الشبكة يسيبها ويشغّل اللي جاهزة.</p>
+<div class="analogy">انت في المطبخ: حطيت المكرونة تغلي، ومستنيتش جنبها. قطّعت السلطة وسخنت الصوص في نفس الوقت. انت شخص واحد (مش parallel) بس بتستغل وقت الانتظار (concurrent).</div>`,
+tip:"Partial failure: ممكن 3 خدمات تنجح وواحدة تفشل. انت اللي تقرر: تستخدم النتايج الجزئية؟ تعيد اللي فشل؟ تفشّل العملية كلها؟"}
+]}],
+quiz:[
+{q:"الـ API رجّع status code <code>404</code>. ده معناه إيه؟",o:["السيرفر واقع","الحاجة اللي طلبتها مش موجودة (غلط في الطلب)","الطلب نجح"],a:1,why:"4xx = مشكلة من ناحية الطلب، و404 تحديداً = Not Found."},
+{q:"أنهي واحد <b>مش</b> المفروض تعيد المحاولة فيه تلقائياً؟",o:["503","Timeout","400"],a:2,why:"400 معناها طلبك نفسه غلط. لو بعته تاني هيرجع نفس الغلط."},
+{q:"<code>np.array([1,2,3]) * 2</code> هيطلع إيه؟",o:["[1,2,3,1,2,3]","[2,4,6]","Error"],a:1,why:"الـ NumPy بيعمل vectorization: يضرب كل عنصر في 2. (الـ list العادية هي اللي بتكرر نفسها.)"},
+{q:"عندك 4 طلبات API كل واحد بياخد 2 ثانية. بالـ asyncio.gather هياخدوا قد إيه تقريباً؟",o:["8 ثواني","2 ثانية تقريباً","نص ثانية"],a:1,why:"كلهم بيستنوا في نفس الوقت، فالوقت الكلي ≈ أطول واحد فيهم."},
+{q:"فين المكان الصح للـ API key؟",o:["في الكود مباشرة","في متغير بيئة <code>os.getenv(\"API_KEY\")</code>","في اسم الملف"],a:1,why:"الـ secrets بتيجي من بيئة التشغيل عشان ماتتسربش مع الكود."}
+]});
+
+// =============== 3. MATH ===============
+UNITS.push({id:"math",title:"الرياضيات اللي ورا الـ AI",en:"Probability · Linear Algebra · Calculus",src:"من ملف Math_Foundations",
+big:"تلات أدوات: <mark>الاحتمالات</mark> بتوصف عدم اليقين، <mark>الجبر الخطي</mark> بيتعامل مع أرقام كتير مرة واحدة (vectors وmatrices)، و<mark>التفاضل</mark> بيقولك تغيّر إيه عشان الغلط يقل.",
+link:"مش محتاج تبقى عالم رياضيات. محتاج تفهم كل أداة بتعمل إيه، لإن الـ ML بيستخدم التلاتة: الموديل matrices، المخرج احتمالات، والتعلم = تفاضل.",
+parts:[
+{name:"الاحتمالات Probability",cards:[
+{id:"m-basic",t:"التجربة والأحداث",en:"Sample space & events",
+one:"Ω (فضاء العينة) = كل النتايج الممكنة. الحدث = مجموعة جزئية منها. والاحتمال رقم بين 0 و 1.",
+body:`<p>ترمي زهرة: <code>Ω = {1,2,3,4,5,6}</code>. الحدث A "رقم زوجي" = <code>{2,4,6}</code>. الحدث B "أكبر من 3" = <code>{4,5,6}</code>.</p>
+${tb(["الرمز","معناه","في المثال"],[["A ∪ B","A <b>أو</b> B","{2,4,5,6}"],["A ∩ B","A <b>و</b> B مع بعض","{4,6}"],["Aᶜ","A ماحصلش","{1,3,5}"]])}
+<p><b>قواعد أساسية:</b></p><ul><li>الاحتمال عمره ما يكون سالب، ومجموع كل الاحتمالات = 1.</li><li><b>المكمّل:</b> <code>P(مش A) = 1 − P(A)</code>. لو احتمال المطر 0.3، احتمال مافيش مطر 0.7.</li><li><b>الجمع:</b> <code>P(A ∪ B) = P(A) + P(B) − P(A ∩ B)</code>. بنطرح المشترك عشان ماتعدوش مرتين.</li></ul>`,
+tip:"لما تلاقي سؤال \"احتمال واحد على الأقل\" احسب <code>1 − P(ولا واحد)</code>، أسهل بكتير."},
+{id:"m-count",t:"العد: تباديل وتوافيق",en:"Permutations & combinations",
+one:"لو الترتيب فارق = تباديل. لو الترتيب مش فارق = توافيق.",
+body:`<ul><li><b>قاعدة الضرب:</b> 3 قمصان × 4 بناطيل = 12 لبسة.</li><li><b>Permutation (الترتيب فارق):</b> تختار رئيس ونائب وسكرتير من 5: <code>5×4×3 = 60</code>.</li><li><b>Combination (الترتيب مش فارق):</b> تختار فريق 3 من 5: <code>C(5,3) = 10</code>. أحمد-سارة-عمر هو هو سارة-عمر-أحمد.</li></ul>
+<p>ولما كل النتايج ليها نفس الفرصة: <code>الاحتمال = عدد الحالات المطلوبة ÷ عدد كل الحالات</code>.</p>`},
+{id:"m-cond",t:"الاحتمال الشرطي",en:"Conditional probability",
+one:"<code>P(A|B)</code> = احتمال A <b>لو عرفنا إن</b> B حصل. المعلومة الجديدة بتصغّر الدنيا اللي بنحسب فيها.",
+fig:`<svg class="d" viewBox="0 0 520 130" role="img" aria-label="زهرة: من بين 4 و5 و6، الأرقام الزوجية 4 و6">
+${[1,2,3,4,5,6].map((n,i)=>`<rect x="${20+i*82}" y="20" width="64" height="64" rx="10" class="${n>3?'f-tsoft':'f-paper'} ${n>3?'st-teal':'st-line'}" stroke-width="2"/><text x="${52+i*82}" y="62" text-anchor="middle" style="font-size:24px" class="${(n>3&&n%2==0)?'t':''}">${n}</text>`).join('')}
+<text x="260" y="104" text-anchor="middle" class="m">الملوّن = B (أكبر من 3). جواه الزوجي: 4 و 6</text><text x="260" y="122" text-anchor="middle" class="mono t">P(even | B) = 2/3</text></svg>`,
+body:`<p>المعادلة: <code>P(A|B) = P(A ∩ B) / P(B)</code>. يعني القسمة بقت على B بس مش على كل الحالات.</p>
+<p><b>قاعدة الضرب:</b> <code>P(A ∩ B) = P(A) × P(B|A)</code>. كيس فيه 3 حمر و2 زرق، تسحب اتنين من غير إرجاع: احتمال الاتنين حمر = <code>3/5 × 2/4 = 3/10</code>.</p>
+<p><b>الاستقلال:</b> A و B مستقلين لو معرفة واحد ماتغيرش احتمال التاني: <code>P(A∩B) = P(A)×P(B)</code>. زي رمية عملتين.</p>`,
+tip:"\"مستقلين\" غير \"منفصلين\". الحدثين المنفصلين (مايحصلوش مع بعض) <b>مش</b> مستقلين، لإن لو واحد حصل يبقى التاني أكيد ماحصلش."},
+{id:"m-bayes",t:"نظرية بايز",en:"Bayes' theorem",
+one:"بتقلب الشرط: من \"احتمال العيب لو المكنة 2\" تحسب \"احتمال إنها المكنة 2 لو لقينا عيب\".",
+fig:`<svg class="d" viewBox="0 0 520 215" role="img" aria-label="شجرة احتمالات للمكينتين">
+<text x="505" y="104" text-anchor="end">بداية</text>
+<line x1="465" y1="100" x2="370" y2="50" class="st-muted" stroke-width="1.5"/><line x1="465" y1="100" x2="370" y2="150" class="st-muted" stroke-width="1.5"/>
+<text x="428" y="64" text-anchor="middle" class="t mono">0.6</text><text x="428" y="146" text-anchor="middle" class="t mono">0.4</text>
+<text x="362" y="54" text-anchor="end">مكنة 1</text><text x="362" y="154" text-anchor="end">مكنة 2</text>
+<line x1="300" y1="50" x2="215" y2="50" class="st-muted"/><line x1="300" y1="150" x2="215" y2="150" class="st-muted"/>
+<text x="258" y="43" text-anchor="middle" class="mono t">0.02</text><text x="258" y="143" text-anchor="middle" class="mono t">0.05</text>
+<text x="208" y="54" text-anchor="end">معيوب</text><text x="208" y="154" text-anchor="end">معيوب</text>
+<text x="10" y="54" class="mono">0.6×0.02 = 0.012</text><text x="10" y="154" class="mono">0.4×0.05 = 0.020</text>
+<text x="10" y="190" class="mono">P(D) = 0.012 + 0.020 = 0.032</text><text x="10" y="208" class="mono t">P(M2 | D) = 0.020 / 0.032 = 0.625</text>
+<text x="505" y="208" text-anchor="end" class="m">D = معيوب ، M2 = مكنة 2</text></svg>`,
+body:`<p>المصنع فيه مكنتين: 60% من الإنتاج من مكنة 1 (نسبة العيوب 2%)، و40% من مكنة 2 (العيوب 5%).</p>
+<ol><li><b>الاحتمال الكلي (Total probability):</b> نجمع كل الطرق اللي ممكن يطلع بيها عيب = 0.032.</li><li><b>بايز:</b> من كل العيوب، كام منها جاي من مكنة 2؟ = 0.020 ÷ 0.032 = 62.5%.</li></ol>
+<p>الشكل العام: <code>Posterior ∝ Likelihood × Prior</code>. يعني اعتقادك بعد الدليل = (قد إيه الدليل متوقع لو الفرضية صح) × (اعتقادك قبل الدليل).</p>
+<div class="analogy">المكنة 2 بتعمل 40% بس من الإنتاج، لكن لإنها بتغلط أكتر، لو مسكت قطعة بايظة غالباً هي منها.</div>`,
+tip:"في الشجرة: اضرب على طول المسار، واجمع بين المسارات."},
+{id:"m-rv",t:"المتغير العشوائي والتوزيعات",en:"Random variables & distributions",
+one:"المتغير العشوائي بيحوّل النتيجة لرقم. التوزيع بيقول كل رقم احتماله قد إيه.",
+body:`<p>ترمي عملتين، X = عدد الصور: <code>P(X=0)=¼, P(X=1)=½, P(X=2)=¼</code>. ده اسمه <b>PMF</b> (للقيم المعدودة).</p>
+<p>لو المتغير مستمر (زي الطول)، بنستخدم <b>PDF</b>: الاحتمال = <b>المساحة</b> تحت المنحنى، مش ارتفاعه. و <b>CDF</b> = احتمال إن X أقل من أو يساوي قيمة معينة.</p>
+${tb(["التوزيع","بيوصف","مثال"],[["Bernoulli","تجربة واحدة نجاح/فشل","القطعة سليمة ولا لأ"],["Binomial","عدد النجاحات في n تجربة","كام سليمة من 10"],["Categorical","اختيار واحد من K فئات","الكلمة الجاية من القاموس"],["Uniform","كل القيم ليها نفس الفرصة","رقم عشوائي بين 0 و 20"],["Normal (Gaussian)","شكل الجرس حوالين المتوسط","أطوال الناس"],["Poisson","عدد أحداث في فترة","مكالمات في الساعة"],["Exponential","وقت الانتظار","لحد العميل الجاي"]])}`,
+tip:"الـ Categorical مهم جداً: الـ LLM في كل خطوة بيطلع Categorical distribution على كل الكلمات الممكنة."},
+{id:"m-ev",t:"القيمة المتوقعة والتباين",en:"Expectation & variance",
+one:"E[X] = المتوسط على المدى الطويل. Var(X) = قد إيه القيم بتبعد عن المتوسط.",
+body:`<p>زهرة: <code>E[X] = (1+2+3+4+5+6)/6 = 3.5</code>. لاحظ إن 3.5 مش ممكن تطلع أصلاً، هو مجرد "مركز الثقل".</p>
+<p><b>Linearity:</b> <code>E[3X − 2Y + 4] = 3E[X] − 2E[Y] + 4</code>، ودي شغالة حتى لو X و Y مش مستقلين.</p>
+<p><b>Variance:</b> متوسط مربع البعد عن المتوسط. <code>Var(X) = E[X²] − (E[X])²</code>. والـ <b>Standard deviation</b> = جذرها (بنفس وحدة البيانات).</p>
+<p><b>Normal:</b> <code>z = (x − μ) / σ</code> بيقولك القيمة بعيدة كام انحراف معياري عن المتوسط. لو μ=100 و σ=15، يبقى 130 بعيدة 2σ.</p>`},
+{id:"m-info",t:"Likelihood و Entropy و Cross-Entropy",en:"Information measures",
+one:"دول اللي هيبقوا الـ loss functions بعدين. Cross-entropy = عقاب كبير لما الموديل يدّي احتمال صغير للإجابة الصح.",
+body:`<ul><li><b>Probability vs Likelihood:</b> الاحتمال: الباراميتر ثابت وبنسأل عن البيانات. الـ likelihood: البيانات ثابتة (شفناها خلاص) وبنقارن قيم الباراميتر. لو شفت 8 صور من 10 رميات، أنهي p للعملة يخلي ده منطقي أكتر؟</li>
+<li><b>Log:</b> ضرب احتمالات صغيرة جداً بيدّي أرقام قريبة من الصفر. الـ log بيحوّل الضرب لجمع: <code>log(ab) = log a + log b</code>.</li>
+<li><b>Entropy:</b> متوسط "المفاجأة". عملة عادلة = 1 bit (مش عارف هيطلع إيه). عملة 99% صورة = entropy قليلة (متوقعة).</li>
+<li><b>Cross-Entropy:</b> الإجابة الصح [1,0] والموديل قال [0.9,0.1] → <code>−log(0.9) ≈ 0.105</code> (غلط صغير). لو قال 0.1 → <code>−log(0.1) ≈ 2.3</code> (غلط كبير).</li>
+<li><b>KL divergence:</b> قد إيه توزيعين مختلفين. دايماً ≥ 0، وبيبقى 0 لو متطابقين، والترتيب فارق.</li></ul>`}
+]},
+{name:"الجبر الخطي Linear Algebra",cards:[
+{id:"m-vec",t:"الـ Vector",en:"Vectors, norms, distance",
+one:"الـ vector = قايمة أرقام مرتبة. تقدر تشوفها كنقطة أو كسهم في فضاء.",
+fig:`<svg class="d" viewBox="0 0 520 210" role="img" aria-label="متجه 3,4 طوله 5">
+<g transform="translate(160,190)"><line x1="0" y1="0" x2="240" y2="0" class="st-line"/><line x1="0" y1="0" x2="0" y2="-180" class="st-line"/>
+${[1,2,3,4,5,6].map(i=>`<line x1="${i*40}" y1="0" x2="${i*40}" y2="-4" class="st-muted"/><text x="${i*40}" y="16" text-anchor="middle" class="m mono">${i}</text>`).join('')}
+${[1,2,3,4].map(i=>`<text x="-10" y="${-i*40+4}" text-anchor="end" class="m mono">${i}</text>`).join('')}
+<line x1="0" y1="0" x2="120" y2="-160" class="st-teal" stroke-width="3"/><circle cx="120" cy="-160" r="5" class="f-teal"/>
+<line x1="120" y1="0" x2="120" y2="-160" class="st-muted" stroke-dasharray="4 4"/>
+<text x="130" y="-162" class="t mono" style="font-size:14px">x = [3, 4]</text><text x="44" y="-90" class="mono">‖x‖ = 5</text></g></svg>`,
+body:`<ul><li><b>الجمع:</b> عنصر عنصر: <code>[1,2] + [3,−1] = [4,1]</code>.</li><li><b>الضرب في رقم:</b> بيكبّر/يصغّر السهم: <code>2×[1,2] = [2,4]</code>.</li><li><b>L2 norm (الطول):</b> <code>√(3²+4²) = 5</code>. <b>L1 norm:</b> <code>|3|+|4| = 7</code>.</li><li><b>المسافة بين نقطتين:</b> اطرحهم وقيس الطول: <code>[1,2]</code> و<code>[4,6]</code> → الفرق <code>[−3,−4]</code> → المسافة 5.</li></ul>
+<div class="analogy">في الـ ML، كل عميل = vector: [السن، الاستخدام، الشكاوى]. وكل كلمة في الـ LLM = vector بمئات الأرقام.</div>`},
+{id:"m-dot",t:"الضرب النقطي",en:"Dot product",
+one:"اضرب العناصر المتقابلة واجمع: بيطلع رقم واحد بيقيس قد إيه السهمين في نفس الاتجاه.",
+body:`<p><code>[1,2]·[3,4] = 1×3 + 2×4 = 11</code></p>
+<p>هندسياً: <code>x·y = ‖x‖ ‖y‖ cos θ</code></p>
+${bx([["موجب كبير","نفس الاتجاه تقريباً (متشابهين)"],["صفر","متعامدين 90° (مالهمش علاقة)"],["سالب","عكس بعض"]])}`,
+tip:"ده أهم عملية في الـ AI كله: الـ neuron بيعمل dot product، والـ attention في الـ LLMs بيعمل dot product عشان يعرف أنهي كلمات مرتبطة ببعض."},
+{id:"m-mat",t:"المصفوفات وضربها",en:"Matrices & multiplication",
+one:"المصفوفة m×n = m صف و n عمود. عشان تضرب A×B لازم أعمدة A = صفوف B.",
+fig:`<svg class="d" viewBox="0 0 520 120" role="img" aria-label="قاعدة الأبعاد في ضرب المصفوفات">
+<g style="direction:ltr"><text x="60" y="55" class="mono" style="font-size:20px" direction="ltr">A</text><text x="85" y="55" class="mono t" style="font-size:16px" direction="ltr">(m × n)</text>
+<text x="190" y="55" class="mono" style="font-size:20px">×</text>
+<text x="230" y="55" class="mono" style="font-size:20px">B</text><text x="255" y="55" class="mono t" style="font-size:16px">(n × p)</text>
+<text x="360" y="55" class="mono" style="font-size:20px">=</text>
+<text x="395" y="55" class="mono" style="font-size:20px">AB</text><text x="430" y="55" class="mono t" style="font-size:16px">(m × p)</text>
+<path d="M150 66 Q 200 100 262 66" fill="none" class="st-teal" stroke-width="2"/><text x="205" y="108" text-anchor="middle" class="t">الداخليين لازم يتساووا</text></g></svg>`,
+body:`<p>كل خانة في الناتج = dot product بين <b>صف</b> من A و<b>عمود</b> من B.</p>
+<p>مثال: <code>[[1,2],[3,4]] × [5,6] = [1×5+2×6, 3×5+4×6] = [17, 39]</code></p>
+<ul><li>غالباً <code>AB ≠ BA</code> (الترتيب فارق).</li><li><b>Transpose Aᵀ:</b> الصفوف تبقى أعمدة.</li><li><b>Identity I:</b> زي الرقم 1، <code>AI = A</code>. و<b>Inverse A⁻¹:</b> زي القسمة، <code>A⁻¹A = I</code>، ومش كل مصفوفة ليها inverse.</li><li>نظام معادلات كامل بيتكتب <code>Ax = b</code>.</li></ul>
+<div class="analogy">المصفوفة "ماكينة تحويل": تدخلها vector بـ 2 أرقام، تطلعلك vector بـ 3 أرقام (لو المصفوفة 3×2). وده بالظبط اللي بتعمله كل layer في الشبكة العصبية.</div>`,
+tip:"أكتر حاجة بتنقذك: اكتب الأبعاد جنب كل مصفوفة قبل ما تحسب. أغلب الـ errors في PyTorch هي shape mismatch."},
+{id:"m-rank",t:"الاستقلال والـ Basis والـ Rank",en:"Independence, basis, rank",
+one:"الـ vectors مستقلة لو مفيش واحد فيهم ممكن تعمله من الباقيين. الـ rank = عدد الاتجاهات المستقلة الحقيقية.",
+body:`<ul><li><code>[1,0]</code> و<code>[0,1]</code> مستقلين. <code>[1,0]</code> و<code>[2,0]</code> لأ (التاني = 2×الأول).</li><li><b>Basis:</b> أقل عدد vectors مستقلة تقدر توصل بيها لأي نقطة. <b>Dimension</b> = عددهم.</li><li><b>Rank:</b> <code>[[1,2],[2,4]]</code> الـ rank بتاعها 1، لإن الصف التاني نسخة مضروبة من الأول.</li><li><b>Linear transformation:</b> دالة بتحافظ على الجمع والضرب في رقم، وكل مصفوفة هي transformation. <code>AB</code> معناها "طبّق B الأول وبعدين A".</li></ul>`},
+{id:"m-proj",t:"الإسقاط و Least Squares",en:"Projection",
+one:"لما مفيش حل مظبوط، بندور على أقرب حل. وده أساس Linear Regression.",
+body:`<p><b>Projection:</b> إسقاط <code>b=[3,4]</code> على اتجاه <code>a=[1,0]</code> = <code>[3,0]</code>، والباقي <code>[0,4]</code> عمودي عليه.</p>
+<p><b>Least squares:</b> عندك نقط كتير ومفيش خط بيعدي عليهم كلهم. بتختار الخط اللي <b>مجموع مربعات الأخطاء</b> بتاعه أقل حاجة: <code>minimize ‖Ax − b‖²</code>.</p>
+<p><b>Determinant:</b> رقم بيقولك المصفوفة بتكبّر المساحة قد إيه. لو = 0 يبقى المصفوفة "بتفرطح" الفضاء ومالهاش inverse.</p>
+<p><b>Eigenvector:</b> اتجاه المصفوفة بتمطّه بس من غير ما تلفه: <code>Av = λv</code>.</p>`}
+]},
+{name:"التفاضل والـ Backpropagation",cards:[
+{id:"m-deriv",t:"المشتقة",en:"Derivative",
+one:"المشتقة = قد إيه المخرج بيتغير لو حركت المدخل حتة صغيرة. يعني ميل المنحنى عند نقطة.",
+body:`<p><code>f(x) = x²</code> → <code>f′(x) = 2x</code>. عند x=2 المشتقة 4: لو زودت x بـ 0.01، الـ f هتزيد حوالي 0.04.</p>
+${bx([["موجبة","الدالة طالعة"],["سالبة","الدالة نازلة"],["صفر","مكان مسطح (قمة أو قاع أو saddle)"]])}
+<p><b>القواعد:</b></p>${tb(["القاعدة","الصيغة","مثال"],[["Power","<code>d(xⁿ) = n·xⁿ⁻¹</code>","<code>d(3x³−2x+5) = 9x²−2</code>"],["Product","<code>(fg)′ = f′g + fg′</code>","<code>(x²eˣ)′ = 2xeˣ + x²eˣ</code>"],["Exp / Log","<code>(eˣ)′ = eˣ</code> · <code>(ln x)′ = 1/x</code>",""],["<b>Chain</b>","<code>dy/dx = dy/dz · dz/dx</code>","<code>((3x+1)⁵)′ = 5(3x+1)⁴ · 3</code>"]])}`,
+tip:"الـ Chain rule أهم قاعدة فيهم: لو x بتأثر في z، و z بتأثر في y، اضرب معدلات التغيير على طول السلسلة. ده بالحرف الـ backpropagation."},
+{id:"m-grad",t:"الـ Gradient",en:"Partial derivatives & gradient",
+one:"لما الدالة ليها مدخلات كتير، تشتق بالنسبة لكل واحد لوحده. الـ gradient = vector فيه كل المشتقات دي، وبيشاور على أسرع اتجاه طلوع.",
+body:`<p><code>f(x,y) = x² + 3xy + y²</code></p><ul><li><code>∂f/∂x = 2x + 3y</code> (اعتبر y ثابت)</li><li><code>∂f/∂y = 3x + 2y</code> (اعتبر x ثابت)</li><li><code>∇f = [2x+3y, 3x+2y]</code></li></ul>
+<div class="analogy">انت واقف على جبل في الضلمة. الـ gradient بيقولك أنهي اتجاه أشد طلوع. عايز تنزل؟ امشي <b>عكسه</b> (−∇f).</div>
+<p><b>Jacobian:</b> نفس الفكرة لما المخرج vector مش رقم. <b>Hessian:</b> المشتقة التانية، بتقيس الانحناء.</p>`},
+{id:"m-gd",t:"Gradient Descent",en:"Learning by walking downhill",
+one:"ابدأ من أي نقطة، احسب الـ gradient، خد خطوة صغيرة عكسه، وكرر. ده إزاي كل الموديلات بتتعلم.",
+widget:"gd",
+body:`<p>القاعدة: <code>x_new = x − η × ∇f(x)</code> حيث η (إيتا) = <b>learning rate</b> = حجم الخطوة.</p>
+<p>مثال: <code>f(x)=x²</code>، نبدأ من x=4، η=0.1: الـ gradient = 2×4 = 8، فـ <code>x₁ = 4 − 0.8 = 3.2</code>.</p>
+${bx([["η صغيرة","آمنة بس بطيئة جداً"],["η كبيرة","سريعة بس ممكن تنط فوق القاع أو تنفجر"]])}
+<p><b>Convex:</b> دالة شكلها وعاء واحد، فأي قاع تلاقيه هو الأحسن. الشبكات العصبية مش convex، فيها قيعان كتير وsaddle points.</p>`},
+{id:"m-bp",t:"الـ Backpropagation بمثال",en:"Chain rule on a graph",
+one:"احسب لقدام (forward) القيم، وبعدين ارجع لورا (backward) اضرب المشتقات المحلية.",
+fig:`<svg class="d" viewBox="0 0 540 170" role="img" aria-label="computational graph: x w b ثم z ثم a ثم L">
+<g style="direction:ltr" direction="ltr">
+${[["x=2",30,30],["w=3",30,80],["b=1",30,130]].map(([t,x,y])=>`<rect x="${x}" y="${y-18}" width="62" height="30" rx="6" class="f-paper st-line"/><text x="${x+31}" y="${y+2}" text-anchor="middle" class="mono">${t}</text>`).join('')}
+<line x1="92" y1="27" x2="150" y2="72" class="st-muted"/><line x1="92" y1="77" x2="150" y2="77" class="st-muted"/><line x1="92" y1="127" x2="150" y2="82" class="st-muted"/>
+<rect x="150" y="58" width="100" height="38" rx="8" class="f-tsoft st-teal"/><text x="200" y="76" text-anchor="middle" class="mono">z=wx+b</text><text x="200" y="91" text-anchor="middle" class="mono t">= 7</text>
+<line x1="250" y1="77" x2="290" y2="77" class="st-muted"/>
+<rect x="290" y="58" width="90" height="38" rx="8" class="f-tsoft st-teal"/><text x="335" y="76" text-anchor="middle" class="mono">a = z²</text><text x="335" y="91" text-anchor="middle" class="mono t">= 49</text>
+<line x1="380" y1="77" x2="420" y2="77" class="st-muted"/>
+<rect x="420" y="58" width="110" height="38" rx="8" class="f-marker"/><text x="475" y="76" text-anchor="middle" class="mono">L=(a−40)²</text><text x="475" y="91" text-anchor="middle" class="mono">= 81</text>
+<text x="475" y="130" text-anchor="middle" class="mono t">dL/da = 18</text><text x="335" y="130" text-anchor="middle" class="mono t">da/dz = 14</text><text x="200" y="130" text-anchor="middle" class="mono t">dz/dw = 2</text>
+<text x="270" y="160" text-anchor="middle" class="mono">← backward:  dL/dw = 18 × 14 × 2 = 504</text></g></svg>`,
+body:`<ol><li><b>Forward:</b> x=2, w=3, b=1 → z=7 → a=49 → L=81 (الهدف t=40).</li><li><b>Backward:</b> <code>dL/da = 2(a−t) = 18</code>، <code>da/dz = 2z = 14</code>، <code>dz/dw = x = 2</code>.</li><li>اضربهم: <code>dL/dw = 504</code>، و<code>dL/db = 18×14×1 = 252</code>.</li></ol>
+<p>يعني لو زودنا w شوية، الـ loss هيزيد جامد، فالـ gradient descent هيقلل w.</p>
+<p><b>لو متغير بيأثر من طريقين:</b> اجمع المساهمتين. <code>y = x² + x³ → y′ = 2x + 3x²</code>.</p>`,
+tip:"<b>Vanishing / exploding:</b> لما تضرب أرقام كتير ورا بعض: <code>0.5²⁰ ≈ 0.000001</code> (الإشارة اختفت) و<code>1.5²⁰ ≈ 3325</code> (انفجرت). ده سبب مشاكل الشبكات العميقة اللي هنشوفها في يوم 5."}
+]}],
+quiz:[
+{q:"ترمي زهرة. عرفت إن الرقم أكبر من 3. احتمال إنه زوجي؟",o:["1/2","2/3","1/3"],a:1,why:"الحالات بقت {4,5,6}، والزوجي منهم {4,6}، يبقى 2/3."},
+{q:"A مصفوفة 3×2 و x vector فيه 2 أرقام. Ax هيطلع فيه كام رقم؟",o:["2","3","6"],a:1,why:"(3×2)×(2×1) = (3×1). الداخليين اتساووا، والناتج بأبعاد الخارجيين."},
+{q:"<code>[1,2]·[3,4]</code> = ؟",o:["[3,8]","11","10"],a:1,why:"1×3 + 2×4 = 11. الـ dot product بيطلع رقم واحد."},
+{q:"في gradient descent بنمشي في اتجاه...",o:["الـ gradient","عكس الـ gradient","عشوائي"],a:1,why:"الـ gradient بيشاور على الطلوع، واحنا عايزين ننزّل الـ loss."},
+{q:"الموديل ادّى الإجابة الصح احتمال 0.01. الـ cross-entropy هتبقى...",o:["صغيرة","كبيرة","صفر"],a:1,why:"−log(0.01) ≈ 4.6. كل ما الاحتمال للإجابة الصح يقل، العقاب يكبر."}
+]});
+
+// =============== 4. ML ===============
+UNITS.push({id:"ml",title:"تعلم الآلة",en:"Machine Learning Fundamentals",src:"من ملف Day_4_Machine_Learning_Fundamentals",
+big:"بدل ما تكتب القواعد بإيدك، بتدّي الموديل <mark>أمثلة فيها الإجابة</mark>، وهو يستنتج القاعدة لوحده، وبعدين يطبقها على حالات جديدة.",
+link:"البيانات النضيفة من يوم 2 هي اللي بتدخل هنا، والرياضة من يوم 3 هي اللي بتخلي الموديل يتعلم.",
+parts:[
+{name:"الفكرة الأساسية",cards:[
+{id:"ml-xy",t:"الـ Features والـ Target",en:"X and y",
+one:"كل صف = مثال. الأعمدة اللي بنتنبأ منها = X (features). العمود اللي عايزين نتنبأ بيه = y (target).",
+fig:tb(["السن","الباقة","الاستخدام","الشكاوى","<mark>هيمشي؟ (y)</mark>"],[["24","Basic","12","3","Yes"],["41","Pro","38","0","No"],["35","Basic","17","2","Yes"],["29","Pro","45","0","?"]]),
+body:`<p>سؤال البيزنس: "العميل ده هيسيبنا (churn)؟" يتحول لسؤال ML: "نقدر نتعلم دالة من بيانات العميل للـ churn؟"</p>
+${fl(["Features <code>X</code>","Model <code>f(X)</code>","Prediction <code>ŷ</code>"],1)}
+${bx([["Training التدريب","أمثلة X + y معروفة ← الموديل بيتعلم الباراميترز"],["Inference الاستخدام","X جديدة ← الموديل المتعلم ← تنبؤ"]])}`},
+{id:"ml-types",t:"أنواع التعلم",en:"Supervised / Unsupervised · Regression / Classification",
+one:"لو عندك إجابات = supervised. مفيش = unsupervised. لو الإجابة رقم = regression. لو فئة = classification.",
+fig:tb(["المشكلة","Supervised؟","النوع"],[["سعر الشقة","آه (عندنا أسعار بيع)","Regression (رقم)"],["إيميل spam ولا لأ","آه","Classification (فئة)"],["العميل هيمشي؟","آه","Classification"],["تقسيم العملاء لمجموعات","لأ (مفيش labels)","Clustering"]]),
+body:`<div class="analogy">Supervised = تذاكر من امتحانات سابقة فيها نموذج إجابة. Unsupervised = حد اداك كومة صور وقالك "قسّمهم لمجموعات" من غير ما يقولك المجموعات إيه.</div>`,
+tip:"أول سؤال تسأله دايماً: الـ target بتاعي نوعه إيه؟ رقم ولا فئة؟"},
+{id:"ml-split",t:"تقسيم البيانات",en:"Train / Validation / Test",
+one:"الموديل يتعلم من جزء، تظبط اختياراتك على جزء، وتمتحنه في الآخر على جزء ماشافهوش خالص.",
+fig:`<svg class="d" viewBox="0 0 520 90" role="img" aria-label="70 بالمية تدريب 15 تحقق 15 اختبار"><g style="direction:ltr">
+<rect x="10" y="20" width="350" height="34" rx="4" class="f-teal"/><rect x="362" y="20" width="73" height="34" rx="4" class="f-marker"/><rect x="437" y="20" width="73" height="34" rx="4" class="f-tsoft st-teal"/>
+<text x="185" y="42" text-anchor="middle" style="fill:var(--sheet)">Train 70% يتعلم منه</text><text x="398" y="42" text-anchor="middle" style="fill:var(--marker-ink)">Val 15%</text><text x="473" y="42" text-anchor="middle">Test 15%</text>
+<text x="398" y="76" text-anchor="middle" class="m">تظبيط ومقارنة</text><text x="473" y="76" text-anchor="middle" class="m">الامتحان الأخير</text></g></svg>`,
+body:`<div class="analogy">Train = المذاكرة. Validation = الامتحانات التجريبية اللي بتعدّل على أساسها طريقة مذاكرتك. Test = الامتحان النهائي، ولو شفت أسئلته قبلها الدرجة مالهاش قيمة.</div>`},
+{id:"ml-base",t:"الـ Baseline",en:"Start simple",
+one:"قبل أي موديل، شوف أبسط حل غبي بيجيب كام. لو موديلك مش أحسن منه، يبقى مش مفيد.",
+body:`<p>لو 82% من العملاء مابيمشوش، يبقى "قول دايماً مش هيمشي" بيجيب 82% accuracy من غير أي ML! فموديل بـ 85% مش إنجاز كبير.</p>
+${bx([["Classification","توقع الفئة الأكتر، أو قاعدة بسيطة، أو عشوائي"],["Regression","توقع المتوسط (mean) أو الوسيط (median) لكل الحالات"]])}`},
+{id:"ml-prep",t:"تجهيز البيانات",en:"Encoding & scaling",
+one:"الموديلات بتفهم أرقام بس. الفئات نحولها بـ One-Hot، والأرقام نخليها على نفس المقياس.",
+fig:tb(["City","City_Cairo","City_Alex","City_Giza"],[["Cairo","1","0","0"],["Alex","0","1","0"],["Giza","0","0","1"]]),
+body:`<p><b>ليه مش 1، 2، 3؟</b> لإن الموديل هيفتكر إن الجيزة "أكبر" من إسكندرية وإن في ترتيب ومسافات. استخدم الأرقام المرتبة (ordinal) بس لو الفئات ليها ترتيب حقيقي (صغير/وسط/كبير).</p>
+<p><b>Scaling:</b> السن 25 والمرتب 75,000. بعد الـ standardization يبقوا حاجة زي −0.4 و +0.7، فمحدش فيهم يطغى على التاني بسبب حجم الرقم بس.</p>
+<p><b>Feature engineering:</b> تعمل features أذكى من الخام: تاريخ الميلاد ← السن، الإيراد والعملاء ← الإيراد لكل عميل.</p>`}
+]},
+{name:"الموديلات",cards:[
+{id:"ml-lin",t:"Linear Regression",en:"Fit a line",
+one:"بيلاقي أحسن خط بيوصف العلاقة: <code>ŷ = b₀ + b₁x</code>.",
+fig:`<svg class="d" viewBox="0 0 520 200" role="img" aria-label="نقط وخط مستقيم وخطوط الخطأ">
+<g transform="translate(60,180)"><line x1="0" y1="0" x2="420" y2="0" class="st-line"/><line x1="0" y1="0" x2="0" y2="-170" class="st-line"/>
+<line x1="0" y1="-20" x2="400" y2="-150" class="st-teal" stroke-width="3"/>
+${[[40,-50],[90,-35],[140,-80],[190,-70],[240,-120],[290,-100],[340,-150],[380,-130]].map(([x,y])=>{const ly=-20-130*x/400;return `<line x1="${x}" y1="${y}" x2="${x}" y2="${ly}" class="st-muted" stroke-dasharray="3 3"/><circle cx="${x}" cy="${y}" r="5" class="f-marker st-ink"/>`}).join('')}
+<text x="420" y="16" text-anchor="end" class="m">الخبرة x</text><text x="6" y="-160" class="m">المرتب y</text><text x="250" y="-150" class="m">الخط المتقطع = الخطأ (residual)</text></g></svg>`,
+body:`<p><code>b₀</code> = نقطة البداية (intercept)، و<code>b₁</code> = الميل (weight). الموديل بيتعلم بإنه يقلل الأخطاء (الفرق بين الحقيقي والمتوقع) على كل بيانات التدريب.</p>
+${fl(["توقّع","قيس الخطأ","احسب الـ loss","عدّل الباراميترز","كرر"])}`,
+code:`from sklearn.linear_model import LinearRegression
+model = LinearRegression()
+model.fit(X_train, y_train)      # تدريب
+y_pred = model.predict(X_test)   # توقع`},
+{id:"ml-log",t:"Logistic Regression",en:"Classification with probabilities",
+one:"رغم اسمه هو classification: بيطلع احتمال بين 0 و1، وبعدين threshold بيحوله لقرار.",
+fig:fl(["Features","Linear score","Sigmoid","P(churn) = 0.82","Class: Yes"],2),
+body:`<p>الـ <b>sigmoid</b> بتاخد أي رقم وتعصره بين 0 و 1. وبعدين: لو الاحتمال ≥ 0.5 قول Yes.</p>
+<p>لو نزّلت الـ threshold: هتقول Yes أكتر ← هتمسك حالات حقيقية أكتر (recall يزيد) بس هتغلط في ناس سليمة أكتر.</p>`},
+{id:"ml-knn",t:"KNN: اسأل جيرانك",en:"K-Nearest Neighbors",
+one:"عشان تتنبأ بنقطة جديدة، دوّر على أقرب K نقط ليها وخد رأي الأغلبية.",
+fig:`<svg class="d" viewBox="0 0 520 190" role="img" aria-label="نقطة جديدة وأقرب 5 جيران">
+<circle cx="260" cy="95" r="70" fill="none" class="st-teal" stroke-dasharray="5 4" stroke-width="2"/>
+${[[220,70,1],[300,80,1],[250,140,0],[290,120,1],[230,110,1],[120,50,0],[90,130,0],[400,40,1],[430,150,0],[150,160,0],[380,100,1]].map(([x,y,c])=>c?`<circle cx="${x}" cy="${y}" r="7" class="f-teal"/>`:`<rect x="${x-7}" y="${y-7}" width="14" height="14" class="f-marker st-ink"/>`).join('')}
+<text x="260" y="101" text-anchor="middle" style="font-size:20px;font-weight:700">?</text>
+<text x="260" y="185" text-anchor="middle" class="m">K=5: جوه الدايرة 4 دواير و1 مربع ← الجديدة "دايرة"</text></svg>`,
+body:`${tb(["K","السلوك"],[["K=1","محلي جداً وبيتأثر بالـ noise"],["K=5","توازن"],["K=20","ناعم بس ممكن يضيع تفاصيل"]])}
+<p>الـ K اسمه <b>hyperparameter</b>: انت اللي بتختاره (على الـ validation مش الـ test).</p>`,
+tip:"KNN بيعتمد على المسافة، فالـ scaling ضروري. لو المرتب بالآلاف والسن بالعشرات، المرتب هيتحكم في المسافة لوحده."},
+{id:"ml-tree",t:"Decision Tree",en:"If/then questions",
+one:"سلسلة أسئلة آه/لأ بتقسّم البيانات لمجموعات أنقى كل مرة.",
+fig:`<svg class="d" viewBox="0 0 520 190" role="img" aria-label="شجرة قرار">
+<rect x="185" y="10" width="150" height="34" rx="8" class="f-tsoft st-teal"/><text x="260" y="32" text-anchor="middle">الاستخدام &gt; 25؟</text>
+<line x1="230" y1="44" x2="140" y2="85" class="st-muted"/><line x1="290" y1="44" x2="380" y2="85" class="st-muted"/>
+<text x="175" y="66" class="m">لأ</text><text x="345" y="66" class="m">آه</text>
+<rect x="65" y="85" width="150" height="34" rx="8" class="f-tsoft st-teal"/><text x="140" y="107" text-anchor="middle">الشكاوى &gt; 2؟</text>
+<rect x="335" y="85" width="90" height="34" rx="8" class="f-good"/><text x="380" y="107" text-anchor="middle" style="fill:var(--sheet)">هيفضل</text>
+<line x1="110" y1="119" x2="70" y2="150" class="st-muted"/><line x1="170" y1="119" x2="210" y2="150" class="st-muted"/>
+<text x="80" y="140" class="m">آه</text><text x="200" y="140" class="m">لأ</text>
+<rect x="25" y="150" width="90" height="32" rx="8" class="f-bad"/><text x="70" y="171" text-anchor="middle" style="fill:var(--sheet)">هيمشي</text>
+<rect x="165" y="150" width="90" height="32" rx="8" class="f-good"/><text x="210" y="171" text-anchor="middle" style="fill:var(--sheet)">هيفضل</text></svg>`,
+body:`<p>المصطلحات: <b>Root</b> أول سؤال، <b>Split</b> سؤال على feature، <b>Branch</b> الطريق بعد الإجابة، <b>Leaf</b> القرار النهائي. الشجرة بتختار السؤال اللي يخلي المجموعات "أنقى" (بمقياس Gini أو entropy).</p>
+${bx([["مميزاتها","سهل تشرحها، بتمسك علاقات مش خطية، مش محتاجة scaling"],["عيوبها","بتعمل overfit بسهولة، وتغيير صغير في البيانات يطلع شجرة مختلفة"]])}`},
+{id:"ml-ens",t:"Random Forest و Gradient Boosting",en:"Ensembles",
+one:"بدل شجرة واحدة متقلبة، اجمع شجر كتير. Forest = بالتوازي وتصويت. Boosting = ورا بعض وكل واحدة تصلح غلط اللي قبلها.",
+fig:tb(["","Random Forest","Gradient Boosting"],[["الفكرة","شجر كتير مستقل وبعدين تصويت/متوسط","شجرة ورا شجرة، كل واحدة تركز على الأخطاء"],["التنوع جاي من","كل شجرة بتشوف صفوف مختلفة + features مختلفة","التصحيح المتتالي"],["أمثلة","RandomForest","XGBoost · LightGBM · CatBoost"]]),
+body:`<div class="analogy">Forest = تسأل 100 دكتور كل واحد لوحده وتاخد رأي الأغلبية؛ أخطاءهم المختلفة بتلغي بعض. Boosting = طالب بيحل امتحان، والمدرس يوريه غلطاته، فيذاكرها هي بالذات، ويتكرر.</div>`},
+{id:"ml-map",t:"خريطة الموديلات ومين محتاج Scaling",en:"Model family map",
+one:"مفيش موديل أحسن دايماً. كل عيلة بتفترض إن \"النمط\" شكله مختلف.",
+fig:tb(["العيلة","بتتعلم إزاي","محتاجة scaling؟"],[["Linear / Logistic","معادلة بأوزان","غالباً آه"],["KNN","أقرب الأمثلة","آه ضروري (مسافات)"],["Decision Tree","أسئلة if/then","لأ"],["Forest / Boosting","شجر كتير","لأ غالباً"]]),
+body:`<p>"الأحسن" = الأحسن على <b>المقياس بتاعك</b> وقيودك (سرعة، قابلية الشرح، تكلفة الغلط). وقارن بإنصاف: نفس التقسيم، نفس المقاييس، نفس التجهيز.</p>`}
+]},
+{name:"التقييم والتحسين",cards:[
+{id:"ml-cm",t:"Confusion Matrix و Precision و Recall",en:"Classification metrics",
+one:"الـ accuracy ممكن تكدب. لازم تعرف الموديل بيغلط في أنهي ناحية.",
+widget:"thr",
+body:`<p>لو 95 سليم و5 عيانين، موديل بيقول "سليم" دايماً هيجيب <b>95% accuracy</b> وهو فاشل تماماً!</p>
+${tb(["المقياس","السؤال","المعادلة"],[["Accuracy","صح كام مرة من الكل؟","(TP+TN) / الكل"],["Precision","لما قلت إيجابي، صح كام مرة؟","TP / (TP+FP)"],["Recall","من كل الإيجابيين الحقيقيين، مسكت كام؟","TP / (TP+FN)"],["F1","توازن بين الاتنين","2PR / (P+R)"]])}
+${bx([["فلتر Spam ← Precision","مش عايز تحط إيميل مهم في الـ spam بالغلط (FP وحش)"],["كشف مرض ← Recall","مش عايز تفوّت حد عيان (FN وحش)"]])}`,
+tip:"المقياس الصح بيتحدد بتكلفة الغلط في البيزنس، مش بالرقم الأشيك."},
+{id:"ml-regm",t:"مقاييس الـ Regression",en:"MAE · MSE · RMSE · R²",
+one:"في الـ regression بنسأل: التوقع بعيد عن الحقيقة قد إيه؟",
+fig:tb(["الحقيقي","المتوقع","|الخطأ|","الخطأ²"],[["100","110","10","100"],["80","70","10","100"],["120","125","5","25"],["","<b>المتوسط</b>","<b>MAE = 8.3</b>","<b>MSE = 75</b> · RMSE ≈ 8.7"]]),
+body:`${tb(["المقياس","ميزته"],[["MAE","متوسط الخطأ بنفس الوحدة، سهل تشرحه"],["MSE","التربيع بيعاقب الأخطاء الكبيرة أكتر"],["RMSE","جذر الـ MSE: بيعاقب الكبير وبيرجع لنفس الوحدة"],["R²","مقارنة بتوقع المتوسط: 1 ممتاز، 0 زي المتوسط، سالب أسوأ من المتوسط"]])}`},
+{id:"ml-pipe",t:"الـ Pipeline",en:"scikit-learn Pipeline + ColumnTransformer",
+one:"اربط التجهيز والموديل في object واحد عشان التجهيز يتعمل بنفس الطريقة كل مرة.",
+code:`from sklearn.pipeline import Pipeline
+from sklearn.compose import ColumnTransformer
+from sklearn.preprocessing import StandardScaler, OneHotEncoder
+from sklearn.linear_model import LogisticRegression
+
+prep = ColumnTransformer([
+    ("num", StandardScaler(), ["age", "usage", "complaints"]),
+    ("cat", OneHotEncoder(), ["plan", "city"]),
+])
+pipe = Pipeline([("prep", prep), ("model", LogisticRegression())])
+pipe.fit(X_train, y_train)     # بيتعلم التجهيز من التدريب بس
+pipe.predict(X_test)`,
+body:`<p>الـ ColumnTransformer بيطبق المعالجة الصح على كل نوع أعمدة. والفايدة: نتايج قابلة للتكرار، مفيش تسريب معلومات من الـ test، وسهل تنشره.</p>`},
+{id:"ml-err",t:"تحليل الأخطاء",en:"Error analysis",
+one:"الرقم بيقولك قد إيه بتغلط. تحليل الأخطاء بيقولك <b>ليه</b>.",
+fig:fl(["اجمع الأخطاء","بص على أمثلة","لاقي نمط","افترض سبب","غيّر","درّب تاني"]),
+body:`<p>أسباب شائعة: feature مهمة ناقصة، labels غلط، فئة قليلة جداً (imbalance)، الموديل بيفشل في شريحة معينة، أو الموديل بسيط/معقد زيادة.</p>
+${fl(["المشكلة","البيانات","Baseline","تجهيز","تدريب","تقييم","تحليل","تحسين"],-1)}<p>الموديل خطوة واحدة بس. المهارة الحقيقية إنك تلف الدايرة دي كويس.</p>`}
+]}],
+quiz:[
+{q:"عايز تتوقع سعر شقة. ده...",o:["Classification","Regression","Clustering"],a:1,why:"الـ target رقم مستمر، يبقى regression."},
+{q:"موديل كشف مرض خطير. أهم مقياس تركز عليه؟",o:["Precision","Recall","Accuracy"],a:1,why:"الغلطة الأخطر إنك تفوّت حد عيان (False Negative)، والـ recall بيقيس ده."},
+{q:"أنهي موديل الـ scaling ضروري ليه؟",o:["Decision Tree","Random Forest","KNN"],a:2,why:"KNN بيحسب مسافات، والأرقام الكبيرة هتتحكم في المسافة."},
+{q:"ليه بنعمل one-hot للمدن بدل 1,2,3؟",o:["عشان نوفر مساحة","عشان الموديل مايفتكرش إن في ترتيب ومسافات بين المدن","عشان الشجرة تشتغل"],a:1,why:"الأرقام بتعمل ترتيب وهمي (الجيزة > إسكندرية)."},
+{q:"الفرق بين Random Forest و Boosting؟",o:["Forest شجر مستقل بالتوازي، Boosting شجر ورا بعض بيصحح الأخطاء","مفيش فرق","Boosting شجرة واحدة"],a:0,why:"دي الفكرة بالظبط: تصويت مستقل مقابل تصحيح متتالي."}
+]});
+
+// =============== 5. DEEP LEARNING ===============
+UNITS.push({id:"dl",title:"التعلم العميق",en:"Deep Learning Fundamentals",src:"من ملف Day_5_Deep_Learning_Fundamentals",
+big:"شبكة عصبية = طبقات كتير من حسابات بسيطة فوق بعض. بتتعلم بدايرة واحدة بتتكرر: <mark>توقّع ← قيس غلطك ← احسب مين السبب ← عدّل ← كرر</mark>.",
+link:"الـ Logistic Regression من يوم 4 هو بالظبط neuron واحد. هنا بنرص neurons كتير في طبقات. والـ backprop هو الـ chain rule من يوم 3.",
+parts:[
+{name:"جوه الشبكة",cards:[
+{id:"dl-neuron",t:"الـ Neuron",en:"weights · bias · activation",
+one:"الـ neuron بياخد مدخلات، يضرب كل واحد في وزن، يجمعهم ويزود bias، ويعدّي النتيجة على activation.",
+widget:"neuron",
+body:`<p><code>z = x₁w₁ + x₂w₂ + x₃w₃ + b</code> وبعدين <code>output = activation(z)</code></p>
+<ul><li><b>Weight (الوزن):</b> قد إيه المدخل ده مهم. نفس المدخل × وزن 1.5 بيأثر أكتر بكتير من × 0.2.</li><li><b>Bias:</b> رقم بيزحزح النتيجة، عشان الـ neuron مايبقاش مجبر يعدي من الصفر.</li><li>الأوزان والـ bias اسمهم <b>parameters</b>، ودول اللي التدريب بيغيرهم.</li></ul>
+<div class="analogy">انت بتقرر تخرج ولا لأ. المدخلات: الجو حلو؟ صحابك جايين؟ عندك امتحان بكرة؟ كل واحدة ليها وزن عندك (الامتحان وزنه سالب كبير). والـ bias هو مزاجك العام: لو بيتوتي، محتاج أسباب أقوى عشان تخرج.</div>`},
+{id:"dl-layers",t:"الطبقات والعمق والعرض",en:"Layers, depth, width",
+one:"Layer = neurons كتير شغالين جنب بعض. مخرج كل طبقة هو مدخل اللي بعدها.",
+fig:`<svg class="d" viewBox="0 0 520 200" role="img" aria-label="شبكة عصبية فيها طبقة دخول وطبقتين مخفيتين وطبقة خروج"><g style="direction:ltr">
+${(()=>{const L=[[3,60],[4,190],[4,320],[1,450]];let s='';const pos=L.map(([n,x])=>Array.from({length:n},(_,i)=>[x,100+(i-(n-1)/2)*40]));for(let l=0;l<3;l++)for(const a of pos[l])for(const b of pos[l+1])s+=`<line x1="${a[0]}" y1="${a[1]}" x2="${b[0]}" y2="${b[1]}" class="st-line"/>`;pos.forEach((p,l)=>p.forEach(([x,y])=>{s+=`<circle cx="${x}" cy="${y}" r="13" class="${l==0?'f-paper st-ink':l==3?'f-marker st-ink':'f-teal'}"/>`}));return s})()}
+<text x="60" y="190" text-anchor="middle" class="m">Input</text><text x="255" y="190" text-anchor="middle" class="m">Hidden layers (العمق = 2)</text><text x="450" y="190" text-anchor="middle" class="m">Output</text>
+<text x="190" y="22" text-anchor="middle" class="m">العرض = 4</text></g></svg>`,
+body:`<p>كل layer ليها <b>weight matrix</b> و<b>bias vector</b> وغالباً activation. يعني الـ layer = ضرب مصفوفة (من يوم 3) + activation.</p>
+${bx([["Depth العمق","عدد الطبقات ورا بعض"],["Width العرض","عدد الـ neurons في الطبقة"]])}
+<p>الفرق عن الـ ML الكلاسيكي: الشبكة بتتعلم <b>representations وسيطة</b> لوحدها، بدل ما انت تعمل feature engineering بإيدك.</p>`},
+{id:"dl-act",t:"الـ Activation functions",en:"ReLU · Sigmoid · Tanh · Softmax",
+one:"من غيرها، طبقات كتير خطية = طبقة واحدة خطية. الـ activation بتضيف الـ \"انحناء\" اللي بيخلي الشبكة تتعلم أي شكل.",
+fig:`<svg class="d" viewBox="0 0 540 150" role="img" aria-label="رسومات ReLU و Sigmoid و Tanh"><g style="direction:ltr">
+${[["ReLU",x=>Math.max(0,x)/3],["Sigmoid",x=>1/(1+Math.exp(-x*1.5))],["Tanh",x=>Math.tanh(x)]].map(([n,f],k)=>{const ox=20+k*180,w=150,h=100,oy=20;let d='';for(let i=0;i<=60;i++){const x=-3+6*i/60,y=f(x);d+=(i?'L':'M')+(ox+w*i/60).toFixed(1)+' '+(oy+h/2-y*h/2.2).toFixed(1)}return `<rect x="${ox}" y="${oy}" width="${w}" height="${h}" rx="6" class="f-paper"/><line x1="${ox}" y1="${oy+h/2}" x2="${ox+w}" y2="${oy+h/2}" class="st-line"/><line x1="${ox+w/2}" y1="${oy}" x2="${ox+w/2}" y2="${oy+h}" class="st-line"/><path d="${d}" fill="none" class="st-teal" stroke-width="3"/><text x="${ox+w/2}" y="${oy+h+20}" text-anchor="middle" class="mono">${n}</text>`}).join('')}</g></svg>`,
+body:`${tb(["الدالة","بتعمل إيه","بتتحط فين"],[["ReLU","السالب يبقى 0، الموجب زي ما هو","الطبقات المخفية (الافتراضي)"],["Sigmoid","تعصر أي رقم بين 0 و 1","مخرج تصنيف ثنائي (آه/لأ)"],["Tanh","بين −1 و +1","بعض الـ RNNs"],["Softmax","تحوّل كذا score لاحتمالات مجموعها 1","مخرج تصنيف لكذا فئة"]])}
+<p>مثال Softmax: scores <code>[2.1, 0.4, 1.2]</code> ← احتمالات <code>[0.64, 0.12, 0.24]</code>.</p>`,
+tip:"Sigmoid و Tanh بيتشبعوا (saturate) في الأطراف، فالـ gradient بيبقى صغير جداً. وده من أسباب إن ReLU بقى الافتراضي."},
+{id:"dl-fwd",t:"الـ Forward pass",en:"Prediction only",
+one:"البيانات بتعدي من الدخول للخروج بالأوزان الحالية. ده توقع بس، مفيش أي تعلم حصل.",
+fig:fl(["Input <code>[2.0, 0.5]</code>","Linear <code>[1.2, −0.4, 0.7]</code>","ReLU <code>[1.2, 0, 0.7]</code>","Output <code>0.83</code>","Positive"],-1,true),
+body:`${tb(["Forward pass","Training"],[["Input ← Layers ← Prediction","Forward ← Loss ← Backprop ← Optimizer"],["بيستخدم الأوزان الحالية","بيغيّر الأوزان"],["هدفه: يطلع مخرج","هدفه: التوقعات الجاية تبقى أحسن"]])}`}
+]},
+{name:"إزاي الشبكة بتتعلم",cards:[
+{id:"dl-loss",t:"الـ Loss",en:"How wrong is the model?",
+one:"دالة بتحوّل \"قد إيه التوقع غلط\" لرقم واحد. الـ optimizer شغلته ينزّل الرقم ده.",
+body:`${tb(["المهمة","الـ Loss","الفكرة"],[["Regression","MSE","الأخطاء الكبيرة بتتعاقب أكتر لإنها متربعة"],["Binary classification","Binary Cross-Entropy (BCE)","الحقيقة 1 والتوقع 0.95 ← loss صغير. التوقع 0.05 ← loss كبير جداً"],["Multiclass","Cross-Entropy","زوّد احتمال الفئة الصح وقلل الباقي"]])}
+${bx([["Loss","للتدريب. لازم يدّي إشارة ينفع نشتق منها (MSE, BCE, CE)"],["Metric","للتواصل مع البشر. مش لازم نشتقها (Accuracy, F1, RMSE)"]])}`},
+{id:"dl-cycle",t:"دايرة التعلم",en:"Forward → Loss → Backprop → Optimizer",
+one:"أهم رسمة في اليوم كله.",
+fig:fl(["1. Forward pass","2. احسب الـ Loss","3. Backpropagation","4. Gradients","5. Optimizer step","الـ batch اللي بعده"],2,true),
+body:`<ul><li><b>Gradient:</b> لو غيرت parameter ده حتة صغيرة، الـ loss هيتغير قد إيه وفي أنهي اتجاه.</li><li><b>Backpropagation:</b> بيحسب الـ gradient لكل parameter بكفاءة (chain rule من الآخر للأول). <b>هو مش بيعدّل حاجة.</b></li><li><b>Optimizer:</b> هو اللي بياخد الـ gradients ويعدّل الأوزان فعلاً.</li></ul>
+${tb(["Optimizer","الفكرة"],[["SGD","امشي مع الـ gradient الحالي"],["Momentum","افتكر الاتجاه اللي فات (زي كورة نازلة بتاخد سرعة)"],["Adam","يظبط حجم الخطوة لكل parameter لوحده. الافتراضي للمبتدئين"]])}`,
+tip:"الـ learning rate أول حاجة تشك فيها لو التدريب بايظ: صغيرة = بطيء جداً، كبيرة = بينط وممكن يطلع NaN."},
+{id:"dl-batch",t:"Batch و Iteration و Epoch",en:"Organizing training",
+one:"Batch = مجموعة أمثلة بتتحسب مع بعض. Iteration = تحديث واحد للأوزان. Epoch = لفّة كاملة على كل البيانات.",
+fig:tb(["الحجم","القيمة"],[["عدد الأمثلة","10,000"],["Batch size","100"],["Iterations في الـ epoch","10,000 ÷ 100 = <b>100</b>"],["لو دربت 5 epochs","100 × 5 = <b>500 تحديث</b>"]]),
+body:`${bx([["Batch صغير (16, 32)","تحديثات أكتر، gradient فيه noise، ذاكرة أقل"],["Batch كبير (256, 512)","تحديثات أقل، gradient أثبت، ذاكرة أكتر"]])}
+<div class="analogy">كتاب 10,000 سؤال. كل يوم تحل 100 (batch) وتراجع غلطك وتعدّل فهمك (iteration). لما تخلص الكتاب كله = epoch. وممكن تعيد الكتاب كذا مرة.</div>
+<pre class="code">for each EPOCH:
+    for each BATCH:
+        forward → loss → backward → update   # = 1 iteration</pre>`}
+]},
+{name:"هل اتعلم فعلاً؟",cards:[
+{id:"dl-fit",t:"Underfitting و Overfitting",en:"Reading training curves",
+one:"ارسم الـ loss بتاع الـ train والـ validation مع الـ epochs. الشكل بيقولك المشكلة.",
+fig:`<svg class="d" viewBox="0 0 540 170" role="img" aria-label="ثلاث رسومات: underfit و good fit و overfit"><g style="direction:ltr">
+${[["Underfit",[[0,.85],[1,.75],[2,.72],[3,.7]],[[0,.88],[1,.78],[2,.75],[3,.74]]],["Good fit",[[0,.9],[1,.45],[2,.28],[3,.22]],[[0,.92],[1,.5],[2,.34],[3,.3]]],["Overfit",[[0,.9],[1,.45],[2,.2],[3,.07]],[[0,.92],[1,.5],[2,.45],[3,.65]]]].map(([n,tr,va],k)=>{const ox=15+k*178,w=160,h=110,oy=15;const p=a=>a.map(([x,y],i)=>(i?'L':'M')+(ox+10+x*(w-20)/3)+' '+(oy+10+(1-y)*(h-20))).join('');return `<rect x="${ox}" y="${oy}" width="${w}" height="${h}" rx="6" class="f-paper"/><path d="${p(tr)}" fill="none" class="st-teal" stroke-width="3"/><path d="${p(va)}" fill="none" stroke="var(--bad)" stroke-width="3" stroke-dasharray="6 4"/><text x="${ox+w/2}" y="${oy+h+22}" text-anchor="middle" class="mono">${n}</text>`}).join('')}
+<text x="20" y="166" class="t mono">— train</text><text x="110" y="166" class="mono" style="fill:var(--bad)">- - validation</text></g></svg>`,
+body:`${tb(["الحالة","Train","Validation","جرّب"],[["Underfitting","وحش","وحش","موديل أكبر، درّب أكتر، راجع البيانات والـ learning rate"],["Good fit","كويس","كويس","كمّل لحد ما الـ validation يقف"],["Overfitting","ممتاز","بيسوء","Regularization، موديل أصغر، بيانات أكتر، early stopping"],["Loss بيتنطط/NaN","—","—","نزّل الـ learning rate، افحص المدخلات"]])}
+<div class="analogy">Overfitting = طالب حافظ إجابات امتحانات السنين اللي فاتت حرفياً. أول ما السؤال يتغير شوية بيقع. Underfitting = طالب مذاكرش أصلاً، فبيقع في الاتنين.</div>`},
+{id:"dl-reg",t:"Regularization",en:"Dropout · Weight decay · Early stopping",
+one:"طرق بتصعّب على الشبكة إنها تحفظ، فتضطر تتعلم أنماط عامة.",
+body:`${bx([["Early stopping","تابع الـ validation، احفظ أحسن نسخة، واقف لو مااتحسنش كام epoch (patience)"],["Dropout","أثناء التدريب بس، اطفي neurons عشوائية عشان الشبكة ماتعتمدش على طريق واحد"],["Weight decay","عقاب إضافي على الأوزان الكبيرة ← حلول أنعم وأبسط"],["بيانات أكتر / موديل أصغر","تنوع أكتر أو سعة أقل للحفظ"]])}`,
+tip:"Dropout شغال في التدريب وبيتقفل في التقييم. عشان كده لازم <code>model.train()</code> و <code>model.eval()</code>."}
+]},
+{name:"عائلات الشبكات و PyTorch",cards:[
+{id:"dl-arch",t:"MLP و CNN و RNN و LSTM",en:"Architecture zoo",
+one:"اختار الشكل حسب شكل البيانات: جدول، صورة، ولا تسلسل.",
+fig:tb(["الشبكة","البيانات","الفكرة"],[["MLP","جداول / vectors ثابتة","طبقات Dense متوصلة ببعض كلها"],["CNN","صور (شبكة pixels)","filters صغيرة بتمشي على الصورة وتدور على أنماط"],["RNN","تسلسلات قصيرة","hidden state بيشيل ذاكرة اللي فات"],["LSTM / GRU","تسلسلات طويلة","بوابات (gates) بتقرر تفتكر إيه وتنسى إيه"]]),
+body:`<p><b>CNN:</b> الـ <b>kernel/filter</b> كاشف نمط صغير (حافة، زاوية) بيتحرك على كل الصورة بنفس الأوزان. الطبقات الأولى بتشوف حاجات بسيطة والعميقة بتجمعها لحاجات معقدة (عين ← وش). الـ <b>pooling</b> بيصغّر الحجم ويحتفظ بالقوي.</p>
+<p><b>RNN:</b> بتقرا كلمة كلمة، ومعاها <code>hₜ</code> ملخص للي فات. المشكلة: في التسلسلات الطويلة الـ gradient بيضعف (vanishing) فبتنسى البداية.</p>
+<p><b>LSTM:</b> بوابات forget/update/output بتتحكم في الذاكرة. <b>GRU:</b> نسخة أبسط وأخف بنفس الهدف.</p>
+<div class="analogy">CNN زي ما تدوّر على "والي" في صورة بعدسة مكبرة صغيرة بتمشيها على الصورة كلها. RNN زي ما تقرا رواية وتفتكر الأحداث وانت ماشي. LSTM زي إنك ماسك نوتة بتكتب فيها المهم وتشطب اللي مش مهم.</div>`},
+{id:"dl-torch",t:"الـ Training loop في PyTorch",en:"From diagram to code",
+one:"6 حاجات بس: Tensor، Dataset، DataLoader، nn.Module، Loss، Optimizer.",
+code:`class Network(nn.Module):
+    def __init__(self, input_size):
+        super().__init__()
+        self.layers = nn.Sequential(
+            nn.Linear(input_size, 32),   # العرض = 32
+            nn.ReLU(),                   # الـ activation
+            nn.Linear(32, 1))            # مخرج واحد (logit)
+    def forward(self, x):
+        return self.layers(x)
+
+model = Network(10)
+criterion = nn.BCEWithLogitsLoss()                            # يعني إيه غلط
+optimizer = torch.optim.Adam(model.parameters(), lr=0.001)    # إزاي نعدّل
+
+for epoch in range(epochs):            # لفّات على الداتا
+    model.train()
+    for X, y in train_loader:          # batches
+        optimizer.zero_grad()          # امسح الـ gradients القديمة
+        logits = model(X)              # forward
+        loss = criterion(logits, y)    # loss
+        loss.backward()                # backprop → gradients
+        optimizer.step()               # update
+
+model.eval()                           # اقفل dropout
+with torch.no_grad():                  # مش محتاجين gradients
+    for X, y in val_loader:
+        logits = model(X)              # احسب الـ metrics`,
+body:`${tb(["الحاجة","شغلتها"],[["Tensor","مصفوفة أرقام. ليها shape (مثلاً [32, 10] = 32 مثال × 10 features) و dtype و device (CPU/GPU)"],["Dataset","يعرف يجيب مثال واحد"],["DataLoader","يقسّم لـ batches ويخلط (shuffle)"],["nn.Module","الشبكة نفسها"]])}`,
+tip:"ليه <code>zero_grad()</code>؟ PyTorch بيجمع الـ gradients فوق بعض لو مامسحتهاش، فكل batch لازم يبدأ نضيف."},
+{id:"dl-debug",t:"لما التدريب يبوظ",en:"Debugging checklist",
+one:"ماتعيدش كتابة الموديل عشوائي. افحص الأساسيات بالترتيب.",
+fig:tb(["العَرَض","افحص"],[["الـ loss مش بينزل","الـ learning rate، البيانات متظبطة ومتعمل لها scaling، الـ labels صح، الـ output shape، الـ loss مناسب، الـ gradients مش صفر"],["Train كويس و Val وحش","Overfitting: early stopping، dropout، weight decay، بيانات أكتر"],["الاتنين وحشين","هل الموديل يقدر يحفظ sample صغيرة جداً؟ لو لأ، في bug"],["NaN أو بينفجر","نزّل الـ lr، دوّر على NaN/inf في المدخلات، gradient clipping، log(0)"]]),
+body:`<p>المهمة العملية: درّب classifier صغير، ارسم الـ curves، واكتب 5 سطور تشخيص: underfit؟ overfit؟ healthy؟</p>`}
+]}],
+quiz:[
+{q:"عندك 2,000 مثال و batch size = 50. كام iteration في الـ epoch؟",o:["50","40","2,000"],a:1,why:"2000 ÷ 50 = 40 batch، وكل batch = تحديث واحد."},
+{q:"مين اللي بيعدّل الأوزان فعلاً؟",o:["Backpropagation","Optimizer","Loss function"],a:1,why:"الـ backprop بيحسب الـ gradients بس، والـ optimizer (زي Adam) هو اللي بيعدّل."},
+{q:"الـ train loss بينزل والـ validation loss بدأ يطلع. ده...",o:["Underfitting","Overfitting","Healthy"],a:1,why:"الموديل بقى يحفظ التدريب ومش بيعمم."},
+{q:"عندك صور وعايز تصنفها. أنسب شبكة؟",o:["CNN","RNN","MLP"],a:0,why:"الصور ليها بنية مكانية، والـ CNN معمولة للـ filters اللي بتمشي على الصورة."},
+{q:"ليه بنحتاج activation function؟",o:["عشان التدريب يبقى أسرع","من غيرها الطبقات الخطية فوق بعض = طبقة خطية واحدة","عشان نقلل الذاكرة"],a:1,why:"الـ activation هي اللي بتدّي الشبكة قدرة تمثل علاقات مش خطية."}
+]});
+
+// =============== 6. GENERATIVE AI ===============
+UNITS.push({id:"genai",title:"الذكاء الاصطناعي التوليدي",en:"Generative AI Foundations",src:"من ملف Day_6_Generative_AI_Foundations",
+big:"الموديل التوليدي مش بيجاوب على سؤال. هو بيتعلم <mark>شكل البيانات الحقيقية</mark> كويس لدرجة إنه يقدر <mark>يعمل مثال جديد</mark> شبهها. وكل عيلة من الموديلات بتعمل ده بحيلة مختلفة.",
+link:"نفس آلية التدريب من يوم 5 (forward، loss، backprop، optimizer). اللي اتغير هو الهدف: بدل ما نتنبأ بـ label، بنولّد.",
+parts:[
+{name:"من التنبؤ للتوليد",cards:[
+{id:"g-pvg",t:"Predictive vs Generative",en:"Two different questions",
+one:"Predictive: \"إيه الإجابة الصح للمدخل ده؟\". Generative: \"البيانات الحقيقية شكلها إيه؟ اعملّي واحدة جديدة.\"",
+fig:tb(["","Predictive","Generative"],[["من صور وشوش","عمره كام؟ مبتسم؟","اعمل وش جديد مش موجود"],["الهدف","مدخل ← إجابة","تتعلم شكل الأمثلة المعقولة"]]),
+body:`<p><b>تتعلم التوزيع</b> = تفهم الأمثلة المعقولة بتعيش فين، مش تحفظ كل صف. والموديل الكويس بيولّد حاجة جديدة، مش نسخة من التدريب (النسخ = خطر على الخصوصية).</p>
+${bx([["Training","بيانات حقيقية ← loss ← backprop ← تعديل"],["Sampling (التوليد)","عشوائية أو شرط ← الموديل المدرّب ← مثال جديد. مفيش تعديل أوزان"]])}
+${bx([["Deterministic","نفس المدخل ← نفس المخرج دايماً"],["Stochastic","نفس الشرط + عشوائية ← مخرجات مختلفة كلها صح"],["Unconditional","\"اعمل أي حاجة من المجال ده\""],["Conditional","\"اعمل حاجة تطابق الوصف ده\" (نص، صورة، class...)"]])}`},
+{id:"g-latent",t:"الـ Latent space",en:"Representations",
+one:"الموديل بيحوّل كل مثال لـ vector مضغوط (latent vector). والأمثلة المتشابهة بتبقى قريبة من بعض في الفضاء ده.",
+fig:`<svg class="d" viewBox="0 0 520 200" role="img" aria-label="نقط مجمعة في فضاء كامن"><g style="direction:ltr">
+<rect x="10" y="10" width="500" height="160" rx="10" class="f-paper"/>
+${[[90,60],[110,80],[80,95],[120,55],[100,100]].map(([x,y])=>`<circle cx="${x}" cy="${y}" r="7" class="f-teal"/>`).join('')}
+${[[380,110],[400,130],[420,105],[395,90],[430,140]].map(([x,y])=>`<rect x="${x-6}" y="${y-6}" width="12" height="12" class="f-marker st-ink"/>`).join('')}
+<line x1="120" y1="85" x2="390" y2="115" class="st-muted" stroke-dasharray="5 5"/>
+${[0.25,0.5,0.75].map(t=>`<circle cx="${120+270*t}" cy="${85+30*t}" r="5" class="f-sheet st-teal" stroke-width="2"/>`).join('')}
+<text x="100" y="135" text-anchor="middle" class="m">قطط</text><text x="405" y="165" text-anchor="middle" class="m">كلاب</text>
+<text x="255" y="75" text-anchor="middle" class="t">interpolation</text>
+<text x="260" y="192" text-anchor="middle" class="m">z = [0.3, −0.9, 1.1, …]  (في الحقيقة مئات الأبعاد، بنرسمها 2D للتوضيح)</text></g></svg>`,
+body:`<ul><li><b>Representation:</b> وصف رقمي مفيد للحاجة، مش الحاجة نفسها. صورة ← <code>[0.4, −1.2, 0.7, …]</code>.</li><li><b>Latent</b> = مخفي. الأبعاد ممكن تمثل الإضاءة أو الوضع أو التعبير من غير ما حد قالها.</li><li><b>Compression:</b> 1,000 رقم ← 32 رقم يجبر الموديل يحتفظ بالمهم بس.</li><li><b>Interpolation:</b> امشي بين نقطتين؛ لو المخرج بيتغير بالتدريج يبقى الفضاء منظم.</li></ul>
+${tb(["حجم الـ latent","النتيجة"],[["صغير جداً","بيضيع معلومات مهمة"],["متوازن","بيمسك العوامل المهمة"],["كبير جداً","الضغط يضعف، فمابيتعلمش بنية مفيدة"]])}`}
+]},
+{name:"عائلات الموديلات التوليدية",cards:[
+{id:"g-ae",t:"Autoencoder",en:"Compress & reconstruct",
+one:"Encoder يضغط المدخل لـ z صغير، و Decoder يحاول يرجعه زي ما كان. الهدف هو المدخل نفسه، فمش محتاج labels.",
+fig:`<svg class="d" viewBox="0 0 520 140" role="img" aria-label="مدخل ثم encoder يضيق ثم z ثم decoder يوسع ثم مخرج"><g style="direction:ltr">
+<rect x="10" y="30" width="70" height="80" rx="8" class="f-paper st-ink"/><text x="45" y="76" text-anchor="middle" class="mono">x</text>
+<path d="M95 25 L205 55 L205 85 L95 115 Z" class="f-tsoft st-teal"/><text x="150" y="75" text-anchor="middle">Encoder</text>
+<rect x="215" y="50" width="50" height="40" rx="6" class="f-marker st-ink"/><text x="240" y="75" text-anchor="middle" class="mono">z</text>
+<path d="M275 55 L385 25 L385 115 L275 85 Z" class="f-tsoft st-teal"/><text x="330" y="75" text-anchor="middle">Decoder</text>
+<rect x="400" y="30" width="70" height="80" rx="8" class="f-paper st-ink"/><text x="435" y="76" text-anchor="middle" class="mono">x̂</text>
+<text x="240" y="130" text-anchor="middle" class="m">bottleneck: 1000 → 32 → 1000</text></g></svg>`,
+body:`<p>بيتدرب بـ <b>reconstruction loss</b> (MSE مثلاً) بين x و x̂، بنفس دايرة يوم 5.</p>
+${bx([["بيستخدم في","تقليل الأبعاد، إزالة الـ noise، كشف الحاجات الشاذة (anomalies بترجع وحشة)، features"],["مشكلته","الـ latent space فيه \"خروم\"؛ لو اخترت z عشوائي غالباً هيطلع زبالة"]])}
+<div class="analogy">تلخيص كتاب في صفحة واحدة، وبعدين حد تاني يحاول يكتب الكتاب تاني من الملخص. عشان ينجح، الملخص لازم يكون فيه الأهم.</div>`,
+tip:"Reconstruction ≠ generation. إنه يرجّع صورة شافها مش معناه إنه يقدر يعمل صورة جديدة من الصفر."},
+{id:"g-vae",t:"VAE",en:"Variational Autoencoder",
+one:"بدل ما الـ encoder يدّي نقطة واحدة، بيدّي <b>توزيع</b> (مركز μ + انتشار σ). كده الفضاء بيبقى منظم وتقدر تسحب منه z جديد.",
+fig:fl(["Input x","Encoder","μ و σ","اسحب z","Decoder","x̂"],3,true),
+body:`<p>التدريب بيوازن هدفين: (1) <b>reconstruction</b> كويس، و(2) <b>regularization</b> يخلي التوزيعات قريبة من شكل بسيط مشترك. ده اللي بيخلي السحب العشوائي يطلع حاجة معقولة.</p>
+<p><b>التوليد:</b> اسحب z من الـ prior ← decoder ← مثال جديد. من غير أي مدخل حقيقي.</p>
+${bx([["مميزات","فضاء منظم، sampling طبيعي، interpolation ناعم، تدريب مستقر"],["عيوب","الصور بتطلع blurry شوية. و<b>Posterior collapse</b>: الـ decoder يتجاهل z فكل z يدّي نفس النتيجة"]])}`},
+{id:"g-gan",t:"GAN",en:"Generator vs Discriminator",
+one:"شبكتين بيتنافسوا: Generator بيزوّر، و Discriminator بيكشف التزوير. الاتنين بيتحسنوا مع بعض.",
+fig:`<svg class="d" viewBox="0 0 520 150" role="img" aria-label="ضوضاء ثم generator ثم صورة مزيفة ثم discriminator يقارن مع صورة حقيقية"><g style="direction:ltr">
+<rect x="10" y="20" width="70" height="40" rx="6" class="f-paper st-line"/><text x="45" y="45" text-anchor="middle" class="mono">noise z</text>
+<line x1="80" y1="40" x2="110" y2="40" class="st-muted"/>
+<rect x="110" y="20" width="100" height="40" rx="6" class="f-teal"/><text x="160" y="45" text-anchor="middle" style="fill:var(--sheet)">Generator</text>
+<line x1="210" y1="40" x2="240" y2="40" class="st-muted"/>
+<rect x="240" y="20" width="70" height="40" rx="6" class="f-paper st-ink"/><text x="275" y="45" text-anchor="middle">مزيف</text>
+<rect x="240" y="90" width="70" height="40" rx="6" class="f-paper st-ink"/><text x="275" y="115" text-anchor="middle">حقيقي</text>
+<line x1="310" y1="40" x2="350" y2="70" class="st-muted"/><line x1="310" y1="110" x2="350" y2="80" class="st-muted"/>
+<rect x="350" y="55" width="110" height="40" rx="6" class="f-marker"/><text x="405" y="80" text-anchor="middle" style="fill:var(--marker-ink)">Discriminator</text>
+<text x="490" y="80" text-anchor="middle">؟</text></g></svg>`,
+body:`<p>كل جولة: (A) درّب الـ Discriminator يفرّق صح، (B) درّب الـ Generator يخدعه. الـ Generator عمره ما بيشوف "الصورة الصح"، بيتعلم من رأي الـ Discriminator بس.</p>
+<div class="analogy">مزوّر فلوس وظابط. كل ما الظابط يتعلم يكشف، المزوّر يحسّن شغله، لحد ما الفلوس المزورة تبقى شبه الحقيقية جداً.</div>
+${bx([["مميزات","صور حادة جداً، توليد سريع (forward pass واحد)"],["عيوب","تدريب مش مستقر، صعب تقيّمه، و<b>Mode collapse</b>: يطلع نوع واحد بس (قطط بس) رغم إن البيانات فيها قطط وكلاب وعربيات"]])}`},
+{id:"g-diff",t:"Diffusion",en:"Learn to remove noise",
+one:"خد صورة، زوّد noise بالتدريج لحد ما تبقى تشويش. درّب موديل يشيل الـ noise خطوة خطوة. للتوليد: ابدأ من تشويش ونضّف.",
+fig:`<div class="fig" aria-label="شريط من الصورة النضيفة للتشويش"><canvas id="diffStrip" width="520" height="118" style="width:100%;max-width:520px;display:block;margin-inline:auto"></canvas><p class="hint" style="text-align:center">من اليمين للشمال: forward (بنزوّد noise). من الشمال لليمين: reverse = التوليد (بنشيل noise)</p></div>`,
+body:`${tb(["Training","Sampling (التوليد)"],[["ابدأ من صورة حقيقية","ابدأ من noise عشوائي"],["اختار timestep t وزوّد noise معروف","نادي الموديل يشيل حتة noise"],["الموديل يتوقع الـ noise","كرر كتير ← صورة نهائية"],["loss + backprop","—"]])}
+<ul><li><b>Timestep t:</b> t صغير = نضيف تقريباً، t كبير = تشويش كامل.</li><li><b>Noise schedule:</b> قاعدة بتحدد بنزود noise قد إيه في كل خطوة.</li><li><b>ليه خطوات كتير؟</b> القفز من تشويش لصورة كاملة في خطوة واحدة صعب جداً. تصحيحات صغيرة كتير أسهل.</li><li><b>Conditional + Guidance:</b> تدّي الموديل نص يمشي عليه. Guidance عالي = يلتزم بالوصف أكتر بس تنوع أقل.</li><li><b>Latent diffusion:</b> اعمل الـ diffusion في latent space مضغوط بدل الـ pixels (أرخص بكتير).</li></ul>
+<div class="analogy">نحّات قدامه حجر خام، وكل مرة بيشيل حتة صغيرة زيادة لحد ما التمثال يبان. الحجر = الـ noise، وكل ضربة = خطوة denoising.</div>`,
+tip:"مميزاته: جودة عالية وتنوع وتدريب مستقر. عيبه: بطيء في التوليد لإنه محتاج خطوات كتير."},
+{id:"g-ar",t:"Autoregressive",en:"What comes next?",
+one:"يولّد التسلسل عنصر عنصر: يتوقع الكلمة الجاية، يختار واحدة، يضيفها، ويكرر. ده اللي بيعمله ChatGPT وClaude.",
+widget:"temp",
+body:`${fl(["السياق","احتمالات الكلمة الجاية","اختار","ضيف","كرر"],1)}
+${tb(["طريقة الاختيار","الفكرة"],[["Greedy","دايماً الأعلى احتمالاً. ثابت بس ممكن يبقى ممل ومكرر"],["Sampling","اختار عشوائي حسب الاحتمالات. متنوع بس ممكن يغلط"],["Temperature","منخفضة = متوقع. عالية = متنوع ومخاطرة"],["Top-k","اختار من أعلى k بس"],["Top-p (nucleus)","اختار من أقل مجموعة مجموع احتمالاتها ≥ p"]])}
+<p><b>في التدريب:</b> بنعرف التسلسل الحقيقي فنقدر ندرّب على كل الكلمات بالتوازي. <b>في التوليد:</b> كل كلمة بتعتمد على اللي الموديل نفسه طلّعه، فغلطة بدري ممكن تجرّ وراها غلطات (error propagation).</p>`},
+{id:"g-mm",t:"Multimodal",en:"Text, image, audio, video",
+one:"موديل بيفهم أو يولّد عبر أكتر من نوع بيانات (modality)، عن طريق ربط الـ representations بتاعتهم.",
+body:`<p><b>Alignment:</b> جملة "كلب بيمسك كورة على البحر" والصورة بتاعتها لازم representations بتاعتهم تبقى قريبة من بعض في المعنى (مش إن النص والـ pixels يبقوا نفس الحاجة).</p>
+${bx([["Text → Image","توليد صورة من وصف"],["Image → Text","وصف صورة أو الإجابة عن سؤال عليها"],["Text → Audio","كلام، صوت، موسيقى"],["Text → Video","فيديو"],["Image + Text → Image","تعديل صورة بأوامر"],["Multi-input → Text","مستندات + صور + سياق ← إجابة"]])}
+<p>تحدياته: هل المخرج مطابق للمعنى؟ نوع بيطغى على التاني، الثبات في الفيديو والصوت، التقييم صعب، والحسابات تقيلة.</p>`}
+]},
+{name:"قارن واختار",cards:[
+{id:"g-cmp",t:"المقارنة الكبيرة",en:"Side by side",
+one:"افتكر كل عيلة بالآلية بتاعتها، مش بالاسم.",
+fig:tb(["العيلة","الفكرة","بيولّد إزاي","مشكلته"],[["Autoencoder","اضغط ورجّع","decode لـ z","الـ z العشوائي مش مضمون"],["VAE","latent احتمالي","اسحب z ← decode","blurry شوية"],["GAN","مزوّر vs ظابط","forward pass واحد","مش مستقر / mode collapse"],["Diffusion","اعكس الـ noise","denoising متكرر","بطيء ومكلّف"],["Autoregressive","الكلمة الجاية","عنصر عنصر","بطء + تراكم الغلط"]]),
+body:`<p><b>التقييم:</b> مفيش رقم واحد. بنبص على: <b>Fidelity</b> (كل مثال شكله حقيقي؟)، <b>Diversity</b> (بيغطي كل الأنواع؟)، <b>Alignment</b> (ملتزم بالشرط؟)، والحكم البشري. الـ GAN اللي عمل mode collapse = fidelity عالية و diversity واطية.</p>
+${tb(["محتاج...","فكّر في"],[["ضغط / reconstruction","Autoencoder"],["latent منظم تسحب منه","VAE"],["توليد سريع بخطوة واحدة","GAN"],["جودة عالية وتحكم بالتدريج","Diffusion"],["توليد تسلسل (نص)","Autoregressive"]])}`}
+]}],
+quiz:[
+{q:"الـ LLMs زي ChatGPT بتولّد النص بأنهي طريقة أساساً؟",o:["Diffusion","Autoregressive","GAN"],a:1,why:"بتتوقع التوكن الجاي وتضيفه وتكرر."},
+{q:"GAN بيطلع قطط حلوة جداً بس قطط بس، رغم إن البيانات فيها حيوانات كتير. اسم المشكلة؟",o:["Posterior collapse","Mode collapse","Overfitting"],a:1,why:"Mode collapse = جودة عالية بس تنوع قليل."},
+{q:"الفرق الأساسي بين Autoencoder و VAE؟",o:["الـ VAE بيـ encode توزيع (μ, σ) فالـ latent بيبقى منظم وتقدر تسحب منه","الـ VAE مالوش decoder","مفيش فرق"],a:0,why:"ده اللي بيخلي الـ VAE يقدر يولّد من z عشوائي."},
+{q:"Diffusion بيولّد صورة إزاي؟",o:["في خطوة واحدة من noise","يبدأ من noise ويشيله خطوة خطوة","ينسخ صورة من التدريب"],a:1,why:"Reverse diffusion: تصحيحات صغيرة كتير متتالية."},
+{q:"لو رفعت الـ temperature في التوليد...",o:["المخرج هيبقى متوقع أكتر","المخرج هيبقى متنوع أكتر ومخاطرة أعلى","مفيش تأثير"],a:1,why:"الـ temperature العالية بتفرطح التوزيع فالكلمات الأقل احتمالاً تاخد فرصة أكبر."}
+]});
+
+// ---------- state ----------
+const KEY="aibc-notebook-v1";
+let S={done:{},quiz:{},mode:"full"};
+try{const raw=localStorage.getItem(KEY);if(raw)S=Object.assign(S,JSON.parse(raw));}catch(e){}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}};
+let current="map";
+let SAMPLE=null;
+
+const esc=s=>s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const KW=/\b(def|return|class|import|from|for|in|if|elif|else|while|try|except|with|as|and|or|not|True|False|None|await|async|SELECT|FROM|WHERE|GROUP BY|ORDER BY|LIMIT|SUM|AS|DESC|JOIN|ON|self|print)\b/g;
+function hl(code){
+  return code.split("\n").map(line=>{
+    let i=-1,inS=false;
+    for(let k=0;k<line.length;k++){const ch=line[k];if(ch==='"'||ch==="'")inS=!inS;if(ch==="#"&&!inS){i=k;break;}}
+    let a=i>=0?line.slice(0,i):line, c=i>=0?line.slice(i):"";
+    a=esc(a).replace(/("[^"]*"|'[^']*')/g,'\u0001$1\u0002').replace(KW,'<span class="k">$1</span>').replace(/\u0001([^\u0002]*)\u0002/g,(m,s)=>'<span class="s">'+s.replace(/<[^>]+>/g,"")+'</span>');
+    return a+(c?'<span class="c">'+esc(c)+'</span>':"");
+  }).join("\n");
+}
+const unitCards=u=>u.parts.flatMap(p=>p.cards);
+const unitPct=u=>{const cs=unitCards(u);return cs.filter(c=>S.done[c.id]).length/cs.length;};
+
+// ---------- nav ----------
+const nav=document.getElementById("nav");
+function renderNav(){
+  const items=[{id:"map",title:"خريطة الرحلة"}].concat(UNITS);
+  nav.innerHTML=items.map((u,i)=>{
+    const p=u.id==="map"?null:unitPct(u);
+    const dot=p===null?"":`<span class="dot ${p>=1?'full':p>0?'half':''}" aria-hidden="true"></span>`;
+    return `<button data-go="${u.id}" aria-current="${u.id===current}">${i?`<span class="n">${i}</span>`:""}${u.title}${dot}</button>`;
+  }).join("");
+  const all=UNITS.flatMap(unitCards),d=all.filter(c=>S.done[c.id]).length,pc=Math.round(100*d/all.length);
+  document.getElementById("ovBar").style.width=pc+"%";
+  document.getElementById("ovTxt").textContent=`${pc}% · ${d} من ${all.length} فكرة`;
+}
+document.addEventListener("click",e=>{
+  const g=e.target.closest("[data-go]");
+  if(g){go(g.dataset.go);}
+});
+function go(id){
+  current=id;
+  try{history.replaceState(null,"","#"+id);}catch(e){}
+  render();
+  const top=document.querySelector("header.top");
+  window.scrollTo({top:id==="map"?0:Math.max(0,nav.offsetTop-4),behavior:"instant"});
+}
+
+// ---------- mode ----------
+const mQ=document.getElementById("mQuick"),mF=document.getElementById("mFull");
+function applyMode(){
+  document.body.classList.toggle("quick",S.mode==="quick");
+  mQ.setAttribute("aria-pressed",S.mode==="quick");mF.setAttribute("aria-pressed",S.mode!=="quick");
+  document.getElementById("modeHint").textContent=S.mode==="quick"?"المراجعة السريعة: الفكرة في جملة + الرسمة بس. مناسبة قبل الامتحان.":"الشرح الكامل: كل فكرة بتشبيه ومثال وكود.";
+}
+mQ.onclick=()=>{S.mode="quick";save();applyMode();};
+mF.onclick=()=>{S.mode="full";save();applyMode();};
+
+// ---------- render ----------
+const main=document.getElementById("main");
+function render(){
+  renderNav();
+  if(current==="map"){main.innerHTML=renderMap();return;}
+  const u=UNITS.find(x=>x.id===current)||UNITS[0];
+  main.innerHTML=renderUnit(u);
+  mountWidgets(main);
+  if(SAMPLE)main.querySelectorAll(".ask-btn").forEach(b=>b.hidden=false);
+}
+
+function renderMap(){
+  const blurbs={python:"إزاي تكتب تعليمات للكمبيوتر: متغيرات، شروط، لوب، دوال، ملفات، OOP.",data:"تجيب البيانات من ملفات وAPIs، تنضفها بـ Pandas، وتتعامل مع الفشل والتوازي.",math:"احتمالات + مصفوفات + تفاضل. الأدوات اللي الموديلات مبنية عليها.",ml:"موديلات بتتعلم من أمثلة: Regression، Trees، KNN، وإزاي تقيّمها صح.",dl:"شبكات عصبية: neuron، layers، loss، backprop، وحلقة التدريب في PyTorch.",genai:"موديلات بتولّد: Autoencoder، VAE، GAN، Diffusion، والـ LLMs."};
+  return `<section class="unit">
+  <div class="u-head"><h2>ابدأ من هنا</h2>
+  <div class="bigidea"><b>الصورة الكبيرة في سطر</b><p>الستة ملفات مش مواضيع منفصلة. هما سلّم: كل درجة واقفة على اللي تحتها.</p></div></div>
+  ${fl(["Python (تكتب)","Data & APIs (تجيب البيانات)","Math (تفهم الآلة)","ML (تتعلم من البيانات)","Deep Learning (شبكات عميقة)","Generative AI (تولّد)"],-1)}
+  <div class="part">الوحدات</div>
+  <div class="roadmap">${UNITS.map((u,i)=>{const p=Math.round(100*unitPct(u));return `<button data-go="${u.id}"><span class="n">${i+1} · ${p}% خلصان</span><b>${u.title}</b><span>${blurbs[u.id]}</span></button>`}).join("")}</div>
+  <div class="part">إزاي تذاكر بالكراسة دي</div>
+  <div class="howto">
+   <div class="box"><b>1. اقرا الجملة الملوّنة</b>أول سطر في كل كارت هو الفكرة كلها. لو فهمته، الباقي تفاصيل.</div>
+   <div class="box"><b>2. العب بالتجارب</b>في كروت فيها sliders (الـ learning rate، الـ threshold، الـ neuron، الـ temperature). حرّكها وشوف إيه بيحصل.</div>
+   <div class="box"><b>3. علّم "فهمتها"</b>لكل كارت. النقطة جنب اسم الوحدة بتصفر ثم تخضر.</div>
+   <div class="box"><b>4. اختبر نفسك</b>كل وحدة آخرها 5 أسئلة بالتصحيح والسبب.</div>
+   <div class="box"><b>5. غيّر السرعة</b>"مراجعة سريعة" فوق بتخفي التفاصيل وتسيب الفكرة والرسمة، مفيدة للمراجعة قبل الامتحان.</div>
+   <div class="box" id="askHow"><b>6. مش فاهم؟</b>زرار "مش فاهم؟ اسأل" تحت كل فكرة بيخلي Claude يشرحها تاني بطريقة تانية، على قد سرعتك.</div>
+  </div>
+  <div class="nextu"><span></span><button class="primary" data-go="python">ابدأ الوحدة 1 ←</button></div>
+  </section>`;
+}
+
+function renderUnit(u){
+  const idx=UNITS.indexOf(u);
+  const pct=Math.round(100*unitPct(u));
+  const cards=u.parts.map(p=>`<div class="part">${p.name}</div>`+p.cards.map(renderCard).join("")).join("");
+  const prev=idx>0?UNITS[idx-1]:null,next=UNITS[idx+1];
+  return `<section class="unit">
+  <div class="u-head"><span class="src">الوحدة ${idx+1} · ${u.src} · <span class="en">${u.en}</span></span>
+  <h2>${u.title}</h2>
+  <div class="bigidea"><b>الفكرة الكبيرة</b><p>${u.big}</p></div>
+  <p class="detail" style="color:var(--muted)">${u.link}</p>
+  <div class="u-progress"><span>فهمت ${unitCards(u).filter(c=>S.done[c.id]).length} من ${unitCards(u).length}</span><div class="bar"><i style="width:${pct}%"></i></div></div></div>
+  ${cards}
+  ${renderQuiz(u)}
+  <div class="nextu">${prev?`<button data-go="${prev.id}">→ ${prev.title}</button>`:`<button data-go="map">→ الخريطة</button>`}${next?`<button class="primary" data-go="${next.id}">${next.title} ←</button>`:`<button class="primary" data-go="map">رجوع للخريطة</button>`}</div>
+  </section>`;
+}
+
+function renderCard(c){
+  const done=!!S.done[c.id];
+  return `<article class="card${done?' done':''}" id="c-${c.id}">
+   <div class="c-top"><h3>${c.t}<span class="en">${c.en}</span></h3>
+   <button class="check" data-check="${c.id}" aria-pressed="${done}">${done?"✓ فهمتها":"علّم: فهمتها"}</button></div>
+   <p class="one">${c.one}</p>
+   ${c.fig||""}
+   ${c.widget?`<div class="widget" data-widget="${c.widget}"></div>`:""}
+   <div class="body detail">${c.body||""}</div>
+   ${c.code?`<pre class="code detail">${hl(c.code)}</pre>`:""}
+   ${c.tip?`<p class="tip detail">${c.tip}</p>`:""}
+   <div class="c-actions"><button class="ask-btn" data-ask="${c.id}" hidden>مش فاهم؟ اسأل</button></div>
+   <div class="ask" data-askbox="${c.id}" hidden>
+     <div class="quickq">
+       <button data-q="اشرحها بطريقة أبسط بكتير، كإني أول مرة أسمع عنها">أبسط من كده</button>
+       <button data-q="ادّيني تشبيه تاني من الحياة اليومية في مصر">تشبيه تاني</button>
+       <button data-q="ليه الفكرة دي مهمة في الـ AI؟ ووريني فين بتستخدم">ليه مهمة؟</button>
+       <button data-q="اسألني سؤال واحد أختبر بيه فهمي، ومتقوليش الإجابة لحد ما أرد">اختبرني</button>
+     </div>
+     <div class="row"><input id="in-${c.id}" type="text" placeholder="أو اكتب سؤالك عن الفكرة دي..." aria-label="سؤالك"><button class="go" data-send="${c.id}">اسأل</button></div>
+     <div class="ans" aria-live="polite"></div>
+   </div>
+  </article>`;
+}
+
+// ---------- check ----------
+document.addEventListener("click",e=>{
+  const b=e.target.closest("[data-check]");if(!b)return;
+  const id=b.dataset.check;S.done[id]=!S.done[id];if(!S.done[id])delete S.done[id];save();
+  const on=!!S.done[id];b.setAttribute("aria-pressed",on);b.textContent=on?"✓ فهمتها":"علّم: فهمتها";
+  b.closest(".card").classList.toggle("done",on);
+  renderNav();
+  const u=UNITS.find(x=>x.id===current);if(u){const up=main.querySelector(".u-progress");if(up){up.querySelector("span").textContent=`فهمت ${unitCards(u).filter(c=>S.done[c.id]).length} من ${unitCards(u).length}`;up.querySelector("i").style.width=Math.round(100*unitPct(u))+"%";}}
+});
+
+// ---------- quiz ----------
+function renderQuiz(u){
+  const st=S.quiz[u.id]||{};
+  const answered=Object.keys(st).length,right=u.quiz.filter((q,i)=>st[i]===q.a).length;
+  return `<div class="quiz" id="quiz-${u.id}"><h3>اختبر نفسك</h3>
+  ${u.quiz.map((q,i)=>{const ch=st[i];const has=ch!==undefined;return `<div class="q"><p class="qt">${i+1}. ${q.q}</p><div class="opts">${q.o.map((o,j)=>{let cls="";if(has){if(j===q.a)cls="right";else if(j===ch)cls="wrong";}return `<button data-quiz="${u.id}" data-qi="${i}" data-oj="${j}" class="${cls}" ${has?"disabled":""}>${o}</button>`}).join("")}</div>${has?`<p class="why">${ch===q.a?"✓ صح. ":"✗ مش دي. "}${q.why}</p>`:""}</div>`}).join("")}
+  <p class="score">${answered===u.quiz.length?`نتيجتك: ${right} من ${u.quiz.length}. ${right===u.quiz.length?"ممتاز، انت جاهز للوحدة اللي بعدها.":right>=3?"كويس. راجع الكروت اللي غلطت فيها.":"ارجع للكروت تاني واستخدم \"مش فاهم؟ اسأل\" على اللي مش واضح."}`:`جاوبت ${answered} من ${u.quiz.length}`}</p>
+  ${answered?`<div><button class="check" data-reset="${u.id}">أعد الاختبار</button></div>`:""}
+  </div>`;
+}
+document.addEventListener("click",e=>{
+  const b=e.target.closest("[data-quiz]");
+  if(b){const u=UNITS.find(x=>x.id===b.dataset.quiz);S.quiz[u.id]=S.quiz[u.id]||{};S.quiz[u.id][+b.dataset.qi]=+b.dataset.oj;save();
+    document.getElementById("quiz-"+u.id).outerHTML=renderQuiz(u);return;}
+  const r=e.target.closest("[data-reset]");
+  if(r){const u=UNITS.find(x=>x.id===r.dataset.reset);delete S.quiz[u.id];save();document.getElementById("quiz-"+u.id).outerHTML=renderQuiz(u);}
+});
+
+// ---------- ask Claude ----------
+const plain=h=>{const d=document.createElement("div");d.innerHTML=h||"";return d.textContent.replace(/\s+/g," ").trim();};
+const ERR={not_granted:"الميزة دي محتاجة موافقتك عشان تشتغل. لو رفضت، تقدر تسأل في الشات العادي.",rate_limited:"أسئلة كتير ورا بعض. استنى شوية وجرب تاني.",session_expired:"محتاج تسجّل دخول تاني.",refused:"ماقدرتش أجاوب على ده بالصيغة دي. جرب تسأل بطريقة تانية.",upstream_error:"حصلت مشكلة في الاتصال. جرب تاني."};
+document.addEventListener("click",e=>{
+  const a=e.target.closest("[data-ask]");
+  if(a){const box=main.querySelector(`[data-askbox="${a.dataset.ask}"]`);box.hidden=!box.hidden;if(!box.hidden)box.querySelector("input").focus();return;}
+  const q=e.target.closest("[data-q]");
+  if(q){const box=q.closest(".ask");askClaude(box.dataset.askbox,q.dataset.q,box);return;}
+  const s=e.target.closest("[data-send]");
+  if(s){const box=s.closest(".ask");const v=box.querySelector("input").value.trim();if(v)askClaude(s.dataset.send,v,box);}
+});
+document.addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.matches(".ask input")){const box=e.target.closest(".ask");const v=e.target.value.trim();if(v)askClaude(box.dataset.askbox,v,box);}});
+async function askClaude(id,question,box){
+  if(!SAMPLE)return;
+  const u=UNITS.find(x=>unitCards(x).some(c=>c.id===id)),c=unitCards(u).find(c=>c.id===id);
+  const out=box.querySelector(".ans"),btns=box.querySelectorAll("button");
+  btns.forEach(b=>b.disabled=true);out.textContent="بفكّر...";
+  const prompt=`انت مدرس صبور وشاطر بتشرح لطالب مصري مبتدئ في AI Bootcamp. اكتب بالعامية المصرية البسيطة، وسيب المصطلحات التقنية بالإنجليزي زي ما هي. استخدم تشبيه من الحياة اليومية ومثال صغير بأرقام لو ينفع. خليك مختصر (أقل من 170 كلمة)، ومن غير عناوين أو markdown تقيل؛ لو محتاج نقط استخدم شرطة بسيطة.
+
+الوحدة: ${u.title} (${u.en})
+الفكرة: ${c.t} (${c.en})
+الشرح اللي الطالب قراه: ${plain(c.one)} ${plain(c.body).slice(0,1800)}
+
+طلب الطالب: ${question}`;
+  try{
+    await SAMPLE(prompt,{onText:({text})=>{out.textContent=text;}});
+  }catch(err){
+    if(err&&err.code==="not_granted"||err&&err.code==="sampling_disabled"){out.textContent=ERR.not_granted;}
+    else{out.textContent=(err&&err.text?err.text+"\n\n":"")+(ERR[err&&err.code]||ERR.upstream_error);}
+  }finally{btns.forEach(b=>b.disabled=false);}
+}
+
+// ---------- widgets ----------
+function css(v){return getComputedStyle(document.documentElement).getPropertyValue(v).trim();}
+function mountWidgets(root){
+  root.querySelectorAll("[data-widget]").forEach(w=>{const f=W[w.dataset.widget];if(f)f(w);});
+  const cv=root.querySelector("#diffStrip");if(cv)drawDiff(cv);
+}
+const W={};
+W.gd=el=>{
+  el.innerHTML=`<p class="w-t">جرّب: انزل الوادي <code>f(x)=x²</code> من x=4</p>
+  <label for="gdEta">الـ learning rate η <input id="gdEta" type="range" min="0.02" max="1.1" step="0.02" value="0.1"><output id="gdEtaO">0.10</output></label>
+  <svg class="d" viewBox="0 0 520 230" id="gdSvg" style="direction:ltr" aria-label="رسم gradient descent"></svg>
+  <p id="gdMsg" class="hint"></p>`;
+  const inp=el.querySelector("#gdEta"),o=el.querySelector("#gdEtaO"),svg=el.querySelector("#gdSvg"),msg=el.querySelector("#gdMsg");
+  const X=x=>260+x*52,Y=y=>200-y*10.5;
+  function draw(){
+    const eta=+inp.value;o.textContent=eta.toFixed(2);
+    let d="";for(let i=0;i<=80;i++){const x=-4.6+9.2*i/80;d+=(i?"L":"M")+X(x).toFixed(1)+" "+Y(x*x).toFixed(1);}
+    let pts=[4];for(let k=0;k<12;k++){pts.push(pts[pts.length-1]-eta*2*pts[pts.length-1]);}
+    let path="",dots="";pts.forEach((x,k)=>{const cx=Math.max(-4.8,Math.min(4.8,x)),cy=Math.max(5,Y(Math.min(x*x,19)));path+=(k?"L":"M")+X(cx).toFixed(1)+" "+cy.toFixed(1);dots+=`<circle cx="${X(cx).toFixed(1)}" cy="${cy.toFixed(1)}" r="${k?4:6}" class="${k?'f-marker st-ink':'f-teal'}"/>`;});
+    svg.innerHTML=`<line x1="20" y1="200" x2="500" y2="200" class="st-line"/><path d="${d}" fill="none" class="st-muted" stroke-width="2"/><path d="${path}" fill="none" stroke="var(--bad)" stroke-width="1.5" stroke-dasharray="4 3"/>${dots}<text x="260" y="222" text-anchor="middle" class="m">x = 0 (القاع)</text>`;
+    const last=pts[12],m=Math.abs(1-2*eta);
+    msg.innerHTML=`بعد 12 خطوة: x = <span class="mono">${Math.abs(last)>999?last.toExponential(1):last.toFixed(3)}</span>. `+(m>1?"<b>انفجر!</b> الخطوة كبيرة جداً فكل مرة بينط أبعد من القاع.":m>0.85&&eta<0.5?"بطيء: الخطوة صغيرة فهياخد وقت طويل.":eta>0.5?"وصل بس وهو بيتنطط يمين وشمال حوالين القاع.":"ممتاز: نازل بثبات للقاع.")+` <span class="hint">(كل خطوة بتضرب x في 1 − 2η = ${(1-2*eta).toFixed(2)})</span>`;
+  }
+  inp.oninput=draw;draw();
+};
+W.thr=el=>{
+  const data=[[.95,1],[.88,1],[.81,0],[.77,1],[.70,1],[.66,0],[.61,0],[.55,1],[.48,0],[.44,1],[.39,0],[.33,0],[.30,0],[.25,1],[.21,0],[.17,0],[.12,0],[.09,0],[.06,0],[.03,0]];
+  el.innerHTML=`<p class="w-t">جرّب: موديل كشف مرض على 20 مريض (7 منهم عيانين فعلاً)</p>
+  <label for="thrIn">الـ threshold <input id="thrIn" type="range" min="0.05" max="0.95" step="0.05" value="0.5"><output id="thrO">0.50</output></label>
+  <div class="cm" id="thrCm"></div><div class="stats" id="thrSt"></div><p class="hint" id="thrMsg"></p>`;
+  const inp=el.querySelector("#thrIn");
+  function upd(){
+    const t=+inp.value;el.querySelector("#thrO").textContent=t.toFixed(2);
+    let TP=0,FP=0,FN=0,TN=0;data.forEach(([p,y])=>{const pr=p>=t?1:0;if(pr&&y)TP++;else if(pr&&!y)FP++;else if(!pr&&y)FN++;else TN++;});
+    el.querySelector("#thrCm").innerHTML=`<div></div><div class="h">توقع: عيان</div><div class="h">توقع: سليم</div><div class="h">فعلاً عيان</div><div class="tp">TP ${TP}</div><div class="fn">FN ${FN}</div><div class="h">فعلاً سليم</div><div class="fp">FP ${FP}</div><div class="tn">TN ${TN}</div>`;
+    const P=TP+FP?TP/(TP+FP):0,R=TP/(TP+FN),F=P+R?2*P*R/(P+R):0,A=(TP+TN)/20;
+    el.querySelector("#thrSt").innerHTML=`<span>Accuracy <b>${(A*100).toFixed(0)}%</b></span><span>Precision <b>${(P*100).toFixed(0)}%</b></span><span>Recall <b>${(R*100).toFixed(0)}%</b></span><span>F1 <b>${F.toFixed(2)}</b></span>`;
+    el.querySelector("#thrMsg").textContent=t<0.35?"threshold واطي: بتمسك أغلب العيانين (recall عالي) بس بتقلق ناس سليمة كتير (FP).":t>0.65?"threshold عالي: لما تقول عيان غالباً صح (precision عالي) بس بتفوّت عيانين (FN).":"في النص: توازن بين الاتنين.";
+  }
+  inp.oninput=upd;upd();
+};
+W.neuron=el=>{
+  const x=[1,2,0.5];
+  el.innerHTML=`<p class="w-t">جرّب: neuron بـ 3 مدخلات <span class="mono">x = [1, 2, 0.5]</span></p>
+  ${["w₁","w₂","w₃","b"].map((n,i)=>`<label for="nw${i}">${n} <input id="nw${i}" type="range" min="-2" max="2" step="0.1" value="${[0.8,-0.4,1.2,0.3][i]}"><output id="nwo${i}"></output></label>`).join("")}
+  <div class="stats" id="nSt"></div><p class="hint">القيم الافتراضية هي مثال الملف: z = 0.8 − 0.8 + 0.6 + 0.3 = 0.9</p>`;
+  const ins=[0,1,2,3].map(i=>el.querySelector("#nw"+i));
+  function upd(){
+    const w=ins.map(i=>+i.value);ins.forEach((inp,i)=>el.querySelector("#nwo"+i).textContent=w[i].toFixed(1));
+    const z=x[0]*w[0]+x[1]*w[1]+x[2]*w[2]+w[3];
+    el.querySelector("#nSt").innerHTML=`<span>z = <b>${z.toFixed(2)}</b></span><span>ReLU(z) = <b>${Math.max(0,z).toFixed(2)}</b></span><span>Sigmoid(z) = <b>${(1/(1+Math.exp(-z))).toFixed(2)}</b></span>`;
+  }
+  ins.forEach(i=>i.oninput=upd);upd();
+};
+W.temp=el=>{
+  const words=[["learning",3.0],["vision",1.3],["models",1.1],["poetry",0.2],["coffee",-1.4]];
+  el.innerHTML=`<p class="w-t">جرّب: الكلمة الجاية بعد <span class="mono">"I love machine ..."</span></p>
+  <label for="tIn">Temperature <input id="tIn" type="range" min="0.2" max="2.5" step="0.1" value="1"><output id="tO">1.0</output></label>
+  <div class="probs" id="tP" style="direction:ltr"></div><p class="hint" id="tMsg"></p>`;
+  const inp=el.querySelector("#tIn");
+  function upd(){
+    const T=+inp.value;el.querySelector("#tO").textContent=T.toFixed(1);
+    const ex=words.map(([w,l])=>Math.exp(l/T)),s=ex.reduce((a,b)=>a+b,0);
+    el.querySelector("#tP").innerHTML=words.map(([w],i)=>{const p=ex[i]/s;return `<div class="row"><span class="mono">${w}</span><i style="width:${(p*100).toFixed(1)}%"></i><span class="mono">${(p*100).toFixed(0)}%</span></div>`}).join("");
+    el.querySelector("#tMsg").textContent=T<0.6?"Temperature واطية: تقريباً هيختار learning كل مرة (زي greedy).":T>1.6?"Temperature عالية: حتى coffee بقى ليها فرصة. متنوع بس ممكن يقول كلام غريب.":"متوازن: غالباً learning بس أحياناً حاجة تانية.";
+  }
+  inp.oninput=upd;upd();
+};
+function drawDiff(cv){
+  const ctx=cv.getContext("2d"),W=cv.width,H=cv.height,n=5,fw=88,gap=(W-n*fw)/(n+1);
+  let seed=7;const rnd=()=>{seed=(seed*16807)%2147483647;return seed/2147483647;};
+  const teal=css("--teal")||"#0E6B66",mk=css("--marker")||"#FFE76A",bg=css("--paper")||"#eee",ink=css("--ink")||"#222",mut=css("--muted")||"#777";
+  ctx.clearRect(0,0,W,H);ctx.font="12px sans-serif";ctx.textAlign="center";
+  for(let k=0;k<n;k++){
+    const x0=W-gap-(k+1)*fw-k*gap,y0=8,lvl=k/(n-1);
+    const off=document.createElement("canvas");off.width=fw;off.height=fw;const o=off.getContext("2d");
+    o.fillStyle=bg;o.fillRect(0,0,fw,fw);o.fillStyle=mk;o.beginPath();o.arc(30,32,18,0,7);o.fill();o.fillStyle=teal;o.fillRect(40,46,36,30);
+    const img=o.getImageData(0,0,fw,fw);for(let i=0;i<img.data.length;i+=4){for(let c=0;c<3;c++){img.data[i+c]=img.data[i+c]*(1-lvl)+rnd()*255*lvl;}}
+    o.putImageData(img,0,0);ctx.drawImage(off,x0,y0);
+    ctx.fillStyle=mut;ctx.fillText(k===0?"x₀ نضيف":k===n-1?"تشويش":"t="+(k*250),x0+fw/2,y0+fw+14);
+  }
+}
+
+// ---------- boot ----------
+(function boot(){
+  const h=(location.hash||"").slice(1);
+  if(h&&(h==="map"||UNITS.some(u=>u.id===h)))current=h;
+  applyMode();render();
+  if(window.claude&&window.claude.use){
+    window.claude.use("sample").then(s=>{if(s){SAMPLE=s;document.querySelectorAll(".ask-btn").forEach(b=>b.hidden=false);}}).catch(()=>{});
+  }
+})();
+</script>
+
+</body></html>
